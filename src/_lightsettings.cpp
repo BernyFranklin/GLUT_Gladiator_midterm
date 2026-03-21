@@ -1,4 +1,4 @@
-#include "../include/_lightsettings.h"
+#include "_lightsettings.h"
 
 _lightSettings::_lightSettings()
 {

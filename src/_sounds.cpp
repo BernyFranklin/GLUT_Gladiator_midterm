@@ -1,4 +1,4 @@
-#include "../include/_sounds.h"
+#include "_sounds.h"
 
 _sounds::_sounds()
 {

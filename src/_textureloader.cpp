@@ -1,4 +1,4 @@
-#include "../include/_textureloader.h"
+#include "_textureloader.h"
 
 _textureLoader::_textureLoader()
 {

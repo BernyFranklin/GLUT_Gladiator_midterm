@@ -9,8 +9,8 @@
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 
-#include "include/_common.h" // for common headers
-#include "include/_scene.h"         // My scene context
+#include<_common.h>        // for common headers
+#include<_scene.h>         // My scene context
 
 HDC			hDC=NULL;		// Private GDI Device Context
 HGLRC		hRC=NULL;		// Permanent Rendering Context

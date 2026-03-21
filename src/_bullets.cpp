@@ -1,4 +1,4 @@
-#include "../include/_bullets.h"
+#include "_bullets.h"
 
 _bullets::_bullets()
 {

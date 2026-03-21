@@ -1,11 +1,11 @@
 #ifndef _INPUTS_H
 #define _INPUTS_H
 
-#include "_common.h"
-#include "_model.h"
-#include "_modelvbo.h"
-//#include "_quad.h"
-#include "_player.h"
+#include<_common.h>
+#include<_model.h>
+#include<_modelvbo.h>
+//#include<_quad.h>
+#include<_player.h>
 
 
 class _inputs

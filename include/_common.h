@@ -4,8 +4,8 @@
 #include<GL/glew.h>
 #include<windows.h>
 #include<iostream>
-#include<GL/glut.h>
 #include<gl/gl.h>
+#include<GL/glut.h>
 #include<time.h>
 #include<cmath>
 #include <stdlib.h>
@@ -13,14 +13,17 @@
 
 #define PI 3.14159
 #define GLEW_STATIC
+#define GRAVITY 9.81
+
+
 
 using namespace std;
 
 typedef struct{
 
-     float x;
-     float y;
-     float z;
+     double x;
+     double y;
+     double z;
 }vec3;
 
 

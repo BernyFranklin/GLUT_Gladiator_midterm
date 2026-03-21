@@ -1,4 +1,4 @@
-#include "../include/_inputs.h"
+#include "_inputs.h"
 
 _inputs::_inputs()
 {

@@ -1,8 +1,8 @@
 #ifndef _MODELVBO_H
 #define _MODELVBO_H
 
-#include "_common.h"
-#include "_textureloader.h"
+#include<_common.h>
+#include<_textureloader.h>
 
 class _modelVBO
 {

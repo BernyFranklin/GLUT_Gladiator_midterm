@@ -1,7 +1,7 @@
 #ifndef _TEXTURELOADER_H
 #define _TEXTURELOADER_H
 
-#include "_common.h"
+#include<_common.h>
 #include<SOIL.h>
 
 class _textureLoader

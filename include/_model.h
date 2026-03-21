@@ -1,7 +1,7 @@
 #ifndef _MODEL_H
 #define _MODEL_H
 
-#include "_common.h"
+#include<_common.h>
 
 class _model
 {

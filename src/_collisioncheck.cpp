@@ -1,4 +1,4 @@
-#include "../include/_collisioncheck.h"
+#include "_collisioncheck.h"
 
 _collisionCheck::_collisionCheck()
 {

@@ -1,10 +1,14 @@
-#include "../include/_parallax.h"
+#include "_parallax.h"
 
 _parallax::_parallax()
 {
     //ctor
     xMax = yMax =1.0;
     xMin = yMin =0.0;
+
+    scale.x =0.3;
+    scale.y =0.3;
+    scale.z =1.0;
 }
 
 _parallax::~_parallax()
@@ -48,23 +52,28 @@ void _parallax::scroll(bool Auto, int dir, float speed)
 
 void _parallax::drawBckGrnd(float width, float height)
 {
+
+    glPushMatrix();
     glColor3f(1.0,1.0,1.0);
     bckGrnd->BindTexture();
+
+    glScalef(scale.x,scale.y,scale.z);
     glDisable(GL_LIGHTING);
     glBegin(GL_POLYGON);
       glTexCoord2f(xMin,yMax);
-      glVertex3f(-width/height,-1,-30);
+      glVertex3f(-width/height,-1,-8);
 
       glTexCoord2f(xMax,yMax);
-      glVertex3f(width/height,-1,-30);
+      glVertex3f(width/height,-1,-8);
 
       glTexCoord2f(xMax,yMin);
-      glVertex3f(width/height,1,-30);
+      glVertex3f(width/height,1,-8);
 
       glTexCoord2f(xMin,yMin);
-      glVertex3f(-width/height,1,-30);
+      glVertex3f(-width/height,1,-8);
 
     glEnd();
     glEnable(GL_LIGHTING);
+    glPopMatrix();
 
 }

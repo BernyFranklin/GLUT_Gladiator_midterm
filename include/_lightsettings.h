@@ -1,7 +1,7 @@
 #ifndef _LIGHTSETTINGS_H
 #define _LIGHTSETTINGS_H
 
-#include "_common.h"
+#include<_common.h>
 
 class _lightSettings
 {

@@ -1,4 +1,4 @@
-#include "../include/_player.h"
+#include "_player.h"
 
 _player::_player()
 {

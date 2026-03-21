@@ -1,7 +1,7 @@
 #ifndef _SOUNDS_H
 #define _SOUNDS_H
 
-#include "_common.h"
+#include<_common.h>
 #include<SNDS/irrKlang.h>
 
 using namespace irrklang;

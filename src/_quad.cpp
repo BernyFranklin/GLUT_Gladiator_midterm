@@ -1,4 +1,4 @@
-#include "../include/_quad.h"
+#include "_quad.h"
 
 _quad::_quad()
 {

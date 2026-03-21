@@ -1,4 +1,4 @@
-#include "../include/_enms.h"
+#include "_enms.h"
 
 _enms::_enms()
 {
@@ -15,6 +15,8 @@ _enms::_enms()
     scale.y =0.5;
     scale.z =1.0;
 
+    vel= 45;
+    t = 0.1;
     actionTrigger =2;
 }
 
@@ -46,7 +48,7 @@ void _enms::enmsActions(float deltaT)
             yMax = 1.0/(float)yFrames;
             yMin = yMax-(1.0/(float)yFrames);
             break;
-        case LEFTWALK:
+        case RIGHTWALK:
 
             if(timer>0.08)
              {
@@ -55,28 +57,48 @@ void _enms::enmsActions(float deltaT)
             xMin +=1.0/(float)xFrames;;
             xMax +=1.0/(float)xFrames;
 
-            pos.x <=4.5?pos.x +=2*deltaT+0.2:actionTrigger=2;
-
+            pos.x <=4.5?pos.x +=2*deltaT+0.2:actionTrigger=LEFTWALK;
+            pos.y = -1.4;
               timer =0;
              }
              break;
-        case RIGHTWALK:
+        case LEFTWALK:
             if(timer>0.08)
              {
              xMax>xMin?(xMax =0,xMin = 1.0/(float)xFrames):NULL;
              xMin +=1.0/(float)xFrames;
              xMax +=1.0/(float)xFrames;
 
-             pos.x >= -4.5?pos.x -= 2*deltaT+0.2:actionTrigger=1;
-
+             pos.x >= -4.5?pos.x -= 2*deltaT+0.2:actionTrigger=RIGHTWALK;
+             pos.y = -1.4;
              timer =0;
              }
              break;
-        case WALKUP:
+        case ROLLEFT:
+
+
+
+
 
              break;
-        case WALKBACK:
+        case ROLRIGHT:
 
+             if(timer>0.08)
+             {
+                theta =30*PI/180.0;
+
+                rot.z += (float)rand()/(float)(RAND_MAX)*100;
+
+                // x = vtcos
+                // y = vtsin - (1/2)gravity*t^2
+
+                pos.x += vel*t*cos(theta)/1200.0;
+                pos.y += (vel*t*sin(theta)-0.5*GRAVITY*t*t)/100.0;
+
+                pos.y > -1.5? t+=0.3: (t=0.1, pos.y = -1.4);
+                pos.x > 4.5? (actionTrigger=LEFTWALK, rot.z=0):NULL;
+              timer =0;
+             }
             break;
         default: break;
     }

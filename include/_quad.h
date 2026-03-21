@@ -1,8 +1,8 @@
 #ifndef _QUAD_H
 #define _QUAD_H
 
-#include "_common.h"
-#include "_textureloader.h"
+#include<_common.h>
+#include<_textureloader.h>
 
 class _quad
 {

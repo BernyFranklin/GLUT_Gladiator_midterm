@@ -1,7 +1,7 @@
 #ifndef _COLLISIONCHECK_H
 #define _COLLISIONCHECK_H
 
-#include "_common.h"
+#include<_common.h>
 
 class _collisionCheck
 {

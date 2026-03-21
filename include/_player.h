@@ -1,8 +1,8 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
 
-#include "_common.h"
-#include "_quad.h"
+#include<_common.h>
+#include<_quad.h>
 
 
 class _player:public _quad

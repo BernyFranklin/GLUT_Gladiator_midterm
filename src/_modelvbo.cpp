@@ -1,4 +1,4 @@
-#include "../include/_modelvbo.h"
+#include "_modelvbo.h"
 
 _modelVBO::_modelVBO()
 {

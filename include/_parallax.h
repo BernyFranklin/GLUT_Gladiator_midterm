@@ -1,8 +1,8 @@
 #ifndef _PARALLAX_H
 #define _PARALLAX_H
 
-#include "_common.h"
-#include "_textureloader.h"
+#include<_common.h>
+#include<_textureloader.h>
 
 
 class _parallax
@@ -19,6 +19,7 @@ class _parallax
         enum{LEFT,RIGHT,UP,DOWN};// you can extend depend on the game
 
         float xMax,xMin,yMax,yMin;//texture coordinates
+        vec3 scale;
     protected:
 
     private:
