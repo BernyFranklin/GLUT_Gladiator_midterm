@@ -30,6 +30,8 @@ public:
     static float deltaTime;
 
     _parallax *level1 = new _parallax();
+    _player *lvl1Player = new _player();
+    _inputs *myKeys = new _inputs();
     vec3 mouse; // to keep track of the mouse location
     vec2 dim;   // window size
 

@@ -17,7 +17,7 @@ class _inputs
         void keyPressed(_model*);
         void keyPressed(_modelVBO*);
         void keyPressed(_player *);
-        void keyUp();
+        void keyUp(_player *);
 
 
         void mouseEventDown(_model*,double,double);

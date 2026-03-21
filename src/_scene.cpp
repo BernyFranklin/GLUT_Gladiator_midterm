@@ -27,8 +27,8 @@ GLint _scene::initGL()
     glEnable(GL_LIGHT0);
 
     // Set background
-    level1->initPrlx("images/crate1.jpeg");
-
+    level1->initPrlx("images/lvl1.png");
+    lvl1Player->plyInit(10, 1, "images/lvl1Player.png");
     return true;
 }
 
@@ -67,6 +67,12 @@ void _scene::drawScene()
     glScalef(13.3f, 13.3f, 1.0f);
     level1->drawBckGrnd(dim.x, dim.y);
     glPopMatrix();
+
+    glPushMatrix();
+    lvl1Player->playerActions(deltaTime);
+    lvl1Player->updateQuad();
+    lvl1Player->drawQuad();
+    glPopMatrix();
 }
 
 void _scene::mouseMapping(int x, int y)
@@ -93,11 +99,13 @@ int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     switch (uMsg)
     {
     case WM_KEYDOWN:
-
+        myKeys->wParam = wParam;
+        myKeys->keyPressed(lvl1Player);
         break;
 
     case WM_KEYUP:
-
+        myKeys->wParam = wParam;
+        myKeys->keyUp(lvl1Player);
         break;
 
     case WM_LBUTTONDOWN:
