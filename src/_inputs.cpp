@@ -48,13 +48,6 @@ void _inputs::keyPressed(_player *qD)
     case VK_RIGHT:
         qD->actionTrigger = qD->RIGHTWALK;
         break;
-    case VK_UP:
-        // qD->actionTrigger = qD->WALKUP;
-        break;
-    case VK_DOWN:
-        // qD->actionTrigger = qD->WALKBACK;
-        break;
-
     default:
         break;
     }
@@ -65,7 +58,19 @@ void _inputs::keyUp(_player *qD)
     switch (wParam)
     {
     case VK_LEFT:
-        qD->actionTrigger = qD->STAND;
+        qD->actionTrigger = qD->STANDLEFT;
+        break;
+    case VK_RIGHT:
+        qD->actionTrigger = qD->STANDRIGHT;
+        break;
+    case VK_UP:
+        // qD->pos.y += 0.1f;
+        // cout << qD->pos.y << endl;
+        // break;
+    case VK_DOWN:
+        // qD->pos.y -= 0.1f;
+        // cout << qD->pos.y << endl;
+        // break;
     default:
         break;
     }

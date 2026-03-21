@@ -28,6 +28,7 @@ GLint _scene::initGL()
 
     // Set background
     level1->initPrlx("images/lvl1.png");
+    level2->initPrlx("images/lvl2.png");
     lvl1Player->plyInit(10, 1, "images/lvl1Player.png");
     return true;
 }
@@ -50,7 +51,7 @@ void _scene::reSize(GLint width, GLint height)
 
 float _scene::deltaTime = 0; // initializing static variable
 
-void _scene::drawScene()
+void _scene::drawScene1()
 {
     auto currentTime = chrono::steady_clock::now();
 
@@ -69,6 +70,34 @@ void _scene::drawScene()
     glPopMatrix();
 
     glPushMatrix();
+    lvl1Player->playerActions(deltaTime);
+    lvl1Player->updateQuad();
+    lvl1Player->drawQuad();
+    glPopMatrix();
+}
+
+void _scene::drawScene2()
+{
+    auto currentTime = chrono::steady_clock::now();
+
+    chrono::duration<float> elapsed = currentTime - lastTime;
+    _scene::deltaTime = elapsed.count();
+    lastTime = currentTime;
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // Clear buffers
+    glLoadIdentity();
+    glColor3f(1.0, 0, 1.0); // sett color for my model
+
+    glPushMatrix();
+    glScalef(13.3f, 13.3f, 1.0f);
+    level2->xMax = 1.0f;
+    level2->yMin = 0.1f;
+    level2->drawBckGrnd(dim.x, dim.y);
+    glPopMatrix();
+
+    glPushMatrix();
+    lvl1Player->pos.y = -1.16f;
     lvl1Player->playerActions(deltaTime);
     lvl1Player->updateQuad();
     lvl1Player->drawQuad();

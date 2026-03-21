@@ -13,7 +13,9 @@ class _player:public _quad
         float timer =0;
         int xFrames,yFrames;
         int actionTrigger;
-        enum{STAND,LEFTWALK,RIGHTWALK,RUN,JUMP,ATTACK,WALKUP,WALKBACK};
+        enum{STANDLEFT, STANDRIGHT,LEFTWALK,RIGHTWALK,RUN,JUMP,ATTACK,WALKUP,WALKBACK};
+        bool facingLeft;
+        bool facingRight;
 
         void plyInit(int,int,char*);
         void playerActions(float);
