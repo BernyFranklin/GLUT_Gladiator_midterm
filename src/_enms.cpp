@@ -2,105 +2,112 @@
 
 _enms::_enms()
 {
-    //ctor
-    pos.x =0;
-    pos.y =-0.4;
-    pos.z =-7;
+    // ctor
+    pos.x = 0;
+    pos.y = -0.4;
+    pos.z = -7;
 
-    rot.x =0;
-    rot.y =0;
-    rot.z =0;
+    rot.x = 0;
+    rot.y = 0;
+    rot.z = 0;
 
-    scale.x =0.5;
-    scale.y =0.5;
-    scale.z =1.0;
+    scale.x = 0.5;
+    scale.y = 0.5;
+    scale.z = 1.0;
 
-    vel= 45;
+    vel = 45;
     t = 0.1;
-    actionTrigger =2;
+    actionTrigger = 2;
 }
 
 _enms::~_enms()
 {
-    //dtor
+    // dtor
 }
 
 void _enms::enmsInit(int x, int y, char *fileName)
 {
     initQuad(fileName);
-    xFrames =x;
-    yFrames =y;
+    xFrames = x;
+    yFrames = y;
 
-    xMin =0;
-    xMax =1.0/(float)xFrames;
-    yMax =1.0/(float)yFrames;
-    yMin =0;
+    xMin = 0;
+    xMax = 1.0 / (float)xFrames;
+    yMin = 0;
+    yMax = 1.0 / (float)yFrames;
+
+    actionTrigger = STAND;
 }
 
 void _enms::enmsActions(float deltaT)
 {
     timer += deltaT;
-    switch(actionTrigger)
+    switch (actionTrigger)
     {
-        case STAND:
-            xMin =0;
-            xMax =1.0/(float)xFrames;
-            yMax = 1.0/(float)yFrames;
-            yMin = yMax-(1.0/(float)yFrames);
-            break;
-        case RIGHTWALK:
+    case STAND:
+        if (timer > 0.08)
+        {
+            xMin += 1.0f / (float)xFrames;
+            xMax += 1.0f / (float)xFrames;
+            pos.y -= 0.1f;
+            timer = 0;
+            if (pos.y < -4.0f)
+            {
+                pos.y = 4.0f;
+            }
+        }
+        break;
+    case RIGHTWALK:
 
-            if(timer>0.08)
-             {
+        if (timer > 0.08)
+        {
 
-            xMax<xMin?(xMin =0,xMax = 1.0/(float)xFrames):NULL;
-            xMin +=1.0/(float)xFrames;;
-            xMax +=1.0/(float)xFrames;
+            xMax < xMin ? (xMin = 0, xMax = 1.0 / (float)xFrames) : NULL;
+            xMin += 1.0 / (float)xFrames;
+            ;
+            xMax += 1.0 / (float)xFrames;
 
-            pos.x <=4.5?pos.x +=2*deltaT+0.2:actionTrigger=LEFTWALK;
+            pos.x <= 4.5 ? pos.x += 2 *deltaT + 0.2 : actionTrigger = LEFTWALK;
             pos.y = -1.4;
-              timer =0;
-             }
-             break;
-        case LEFTWALK:
-            if(timer>0.08)
-             {
-             xMax>xMin?(xMax =0,xMin = 1.0/(float)xFrames):NULL;
-             xMin +=1.0/(float)xFrames;
-             xMax +=1.0/(float)xFrames;
+            timer = 0;
+        }
+        break;
+    case LEFTWALK:
+        if (timer > 0.08)
+        {
+            xMax > xMin ? (xMax = 0, xMin = 1.0 / (float)xFrames) : NULL;
+            xMin += 1.0 / (float)xFrames;
+            xMax += 1.0 / (float)xFrames;
 
-             pos.x >= -4.5?pos.x -= 2*deltaT+0.2:actionTrigger=RIGHTWALK;
-             pos.y = -1.4;
-             timer =0;
-             }
-             break;
-        case ROLLEFT:
+            pos.x >= -4.5 ? pos.x -= 2 *deltaT + 0.2 : actionTrigger = RIGHTWALK;
+            pos.y = -1.4;
+            timer = 0;
+        }
+        break;
+    case ROLLEFT:
 
+        break;
+    case ROLRIGHT:
 
+        if (timer > 0.08)
+        {
+            theta = 30 * PI / 180.0;
 
+            rot.z += (float)rand() / (float)(RAND_MAX) * 100;
 
+            // x = vtcos
+            // y = vtsin - (1/2)gravity*t^2
 
-             break;
-        case ROLRIGHT:
+            pos.x += vel * t * cos(theta) / 1200.0;
+            pos.y += (vel * t * sin(theta) - 0.5 * GRAVITY * t * t) / 100.0;
 
-             if(timer>0.08)
-             {
-                theta =30*PI/180.0;
-
-                rot.z += (float)rand()/(float)(RAND_MAX)*100;
-
-                // x = vtcos
-                // y = vtsin - (1/2)gravity*t^2
-
-                pos.x += vel*t*cos(theta)/1200.0;
-                pos.y += (vel*t*sin(theta)-0.5*GRAVITY*t*t)/100.0;
-
-                pos.y > -1.5? t+=0.3: (t=0.1, pos.y = -1.4);
-                pos.x > 4.5? (actionTrigger=LEFTWALK, rot.z=0):NULL;
-              timer =0;
-             }
-            break;
-        default: break;
+            pos.y > -1.5 ? t += 0.3 : (t = 0.1, pos.y = -1.4);
+            pos.x > 4.5 ? (actionTrigger = LEFTWALK, rot.z = 0) : NULL;
+            timer = 0;
+        }
+        break;
+    default:
+        break;
     }
 }
 
@@ -113,6 +120,6 @@ void _enms::placeEmns(vec3 Epos, float timer)
 
 void _enms::drawEnms()
 {
-   updateQuad();
-   drawQuad();
+    updateQuad();
+    drawQuad();
 }

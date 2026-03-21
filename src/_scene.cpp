@@ -29,7 +29,10 @@ GLint _scene::initGL()
     // Set background
     level1->initPrlx("images/lvl1.png");
     level2->initPrlx("images/lvl2.png");
+    level3->initPrlx("images/lvl3.png");
     lvl1Player->plyInit(10, 1, "images/lvl1Player.png");
+    lvl1Enms->enmsInit(7, 1, "images/obj1.png");
+    lvl1Enms->placeEmns(vec3{2.0f, 4.0f, -7.0f}, deltaTime);
     return true;
 }
 
@@ -74,6 +77,12 @@ void _scene::drawScene1()
     lvl1Player->updateQuad();
     lvl1Player->drawQuad();
     glPopMatrix();
+
+    glPushMatrix();
+    lvl1Enms->enmsActions(deltaTime);
+    lvl1Enms->updateQuad();
+    lvl1Enms->drawQuad();
+    glPopMatrix();
 }
 
 void _scene::drawScene2()
@@ -98,6 +107,33 @@ void _scene::drawScene2()
 
     glPushMatrix();
     lvl1Player->pos.y = -1.16f;
+    lvl1Player->playerActions(deltaTime);
+    lvl1Player->updateQuad();
+    lvl1Player->drawQuad();
+    glPopMatrix();
+}
+
+void _scene::drawScene3()
+{
+    auto currentTime = chrono::steady_clock::now();
+
+    chrono::duration<float> elapsed = currentTime - lastTime;
+    _scene::deltaTime = elapsed.count();
+    lastTime = currentTime;
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // Clear buffers
+    glLoadIdentity();
+    glColor3f(1.0, 0, 1.0); // sett color for my model
+
+    glPushMatrix();
+    glScalef(13.3f, 13.3f, 1.0f);
+    level3->xMax = 0.5f;
+    level3->drawBckGrnd(dim.x, dim.y);
+    glPopMatrix();
+
+    glPushMatrix();
+    lvl1Player->pos.y = -1.06f;
     lvl1Player->playerActions(deltaTime);
     lvl1Player->updateQuad();
     lvl1Player->drawQuad();

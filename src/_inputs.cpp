@@ -41,6 +41,16 @@ void _inputs::keyPressed(_player *qD)
     switch (wParam)
     {
 
+    case VK_UP:
+        qD->pos.y += 0.1f;
+        qD->updateQuad();
+        cout << qD->pos.y << endl;
+        break;
+    case VK_DOWN:
+        qD->pos.y -= 0.1f;
+        qD->updateQuad();
+        cout << qD->pos.y << endl;
+        break;
     case VK_LEFT:
         qD->actionTrigger = qD->LEFTWALK;
         break;

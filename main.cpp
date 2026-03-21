@@ -354,7 +354,7 @@ int WINAPI WinMain(HINSTANCE hInstance,		// Instance
 			}
 			else // Not Time To Quit, Update Screen
 			{
-				myScene->drawScene2();
+				myScene->drawScene1();
 				SwapBuffers(hDC); // Swap Buffers (Double Buffering)
 			}
 
