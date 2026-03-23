@@ -62,47 +62,75 @@ float _scene::deltaTime = 0; // initializing static variable
 
 void _scene::drawScene1()
 {
-    auto currentTime = chrono::steady_clock::now();
-
-    chrono::duration<float> elapsed = currentTime - lastTime;
-    _scene::deltaTime = elapsed.count();
-    lastTime = currentTime;
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // Clear buffers
-    glLoadIdentity();
-    glColor3f(1.0, 0, 1.0); // sett color for my model
-
-    glPushMatrix();
-    glScalef(13.3f, 13.3f, 1.0f);
-    level1->drawBckGrnd(dim.x, dim.y);
-    glPopMatrix();
-
-    glPushMatrix();
-    lvl1Player->playerActions(deltaTime);
-    lvl1Player->updateQuad();
-    lvl1Player->drawQuad();
-    // glPopMatrix();
-
-    // glPushMatrix();
-    for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
+    if (playLevel1)
     {
-        lvl1Enms[i]->enmsActions(deltaTime);
-        lvl1Enms[i]->updateQuad();
-        lvl1Enms[i]->drawQuad();
-    }
-    glPopMatrix();
+        // Initiiate current time for delta use
+        auto currentTime = chrono::steady_clock::now();
+        // Calculate the elapsed time since the last frame
+        chrono::duration<float> elapsed = currentTime - lastTime;
+        _scene::deltaTime = elapsed.count();
+        // Update lastTime
+        lastTime = currentTime;
 
-    for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
-    {
-        if (colCheck->isLinearCol(
-                vec2{lvl1Player->pos.x, lvl1Player->pos.y},
-                vec2{lvl1Enms[i]->pos.x, lvl1Enms[i]->pos.y}))
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // Clear buffers
+        glLoadIdentity();
+        glColor3f(1.0, 0, 1.0); // sett color for my model
+
+        glPushMatrix();
+        glScalef(13.3f, 13.3f, 1.0f);
+        level1->drawBckGrnd(dim.x, dim.y);
+        glPopMatrix();
+
+        glPushMatrix();
+        // Draw player
+        lvl1Player->playerActions(deltaTime);
+        lvl1Player->updateQuad();
+        lvl1Player->drawQuad();
+        // Draw enemies
+        for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
         {
-            lvl1Enms[i]->actionTrigger = lvl1Enms[i]->HIT;
-            lvl1Player->actionTrigger = lvl1Player->HIT;
-            // cout << "Player and object crossed." << endl;
+            lvl1Enms[i]->enmsActions(deltaTime);
+            lvl1Enms[i]->updateQuad();
+            lvl1Enms[i]->drawQuad();
         }
+        glPopMatrix();
+
+        // Check for collisions
+        for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
+        {
+            if (colCheck->isLinearCol(
+                    vec2{lvl1Player->pos.x, lvl1Player->pos.y},
+                    vec2{lvl1Enms[i]->pos.x, lvl1Enms[i]->pos.y}))
+            {
+                lvl1Enms[i]->actionTrigger = lvl1Enms[i]->HIT;
+                lvl1Player->actionTrigger = lvl1Player->HIT;
+                hitCounter++;
+                cout << "Hit counter: " << hitCounter << endl;
+            }
+        }
+        if (hitCounter >= 5)
+        {
+            //playLevel1 = false;
+            //playLevel2 = true;
+            //hitCounter = 0;
+        }
+    }
+
+    if (playLevel2)
+    {
+        // Initiiate current time for delta use
+        auto currentTime = chrono::steady_clock::now();
+        // Calculate the elapsed time since the last frame
+        chrono::duration<float> elapsed = currentTime - lastTime;
+        _scene::deltaTime = elapsed.count();
+        // Update lastTime
+        lastTime = currentTime;
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // Clear buffers
+        glLoadIdentity();
+        glColor3f(1.0, 0, 1.0); // sett color for my model
     }
 }
 

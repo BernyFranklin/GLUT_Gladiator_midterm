@@ -20,12 +20,12 @@ public:
 
     GLint initGL();            // initialize the openGL contents
     void reSize(GLint, GLint); // to handle resize window
-    void drawScene1();          // render the final scene
+    void drawScene1();         // render the final scene
     void drawScene2();
     void drawScene3();
-    int winMsg(HWND hWnd,      // Handle For This Window
-               UINT uMsg,      // Message For This Window
-               WPARAM wParam,  // Additional Message Information
+    int winMsg(HWND hWnd,     // Handle For This Window
+               UINT uMsg,     // Message For This Window
+               WPARAM wParam, // Additional Message Information
                LPARAM lParam);
 
     void mouseMapping(int, int);
@@ -35,12 +35,26 @@ public:
     _parallax *level2 = new _parallax();
     _parallax *level3 = new _parallax();
     _player *lvl1Player = new _player();
-    _enms  *lvl1Enms[4] = { new _enms(), new _enms(), new _enms(), new _enms() };
+    _enms *lvl1Enms[10] =
+        {
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms()};
     _inputs *myKeys = new _inputs();
     _collisionCheck *colCheck = new _collisionCheck();
     vec3 mouse; // to keep track of the mouse location
     vec2 dim;   // window size
-
+    int hitCounter = 0;
+    bool playLevel1 = true;
+    bool playLevel2 = false;
+    bool playLevel3 = false;
 
 protected:
 private:

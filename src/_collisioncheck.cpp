@@ -13,8 +13,6 @@ _collisionCheck::~_collisionCheck()
 bool _collisionCheck::isLinearCol(vec2 player, vec2 enemy)
 {
     bool crossX, crossY;
-    cout << "Player: " << player.x << ", " << player.y << endl;
-    cout << "Enemy: " << enemy.x << ", " << enemy.y << endl;
     (enemy.y <= player.y + 0.5f) ? crossY = true : crossY = false;
     (enemy.x > (player.x - 0.5f) && enemy.x < (player.x + 0.5f))
         ? crossX = true

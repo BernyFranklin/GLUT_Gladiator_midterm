@@ -9,6 +9,7 @@ _player::_player()
     yMax = 0.5f;
 
     pos.y = -2.56f;
+    pos.x = -4.6f;
 }
 
 _player::~_player()
@@ -22,12 +23,12 @@ void _player::plyInit(int x, int y, char *fileName)
     xFrames = x;
     yFrames = y;
 
-    xMin = 1.0f / (float)xFrames;
-    xMax = 2.0f / (float)xFrames;
+    xMin = 2.0f / (float)xFrames;
+    xMax = 1.0f / (float)xFrames;
     yMin = 0.02f / (float)yFrames;
     yMax = 1.0f / (float)yFrames;
-    facingLeft = true;
-    facingRight = false;
+    facingLeft = false;
+    facingRight = true;
 }
 
 void _player::playerActions(float deltaT)
@@ -56,7 +57,7 @@ void _player::playerActions(float deltaT)
             facingRight = false;
             facingLeft = true;
         }
-        if (timer > 0.08)
+        if (timer > 0.07)
         {
             xMin += 1.0f / (float)xFrames;
             xMax += 1.0f / (float)xFrames;
@@ -75,7 +76,7 @@ void _player::playerActions(float deltaT)
             facingLeft = false;
             facingRight = true;
         }
-        if (timer > 0.08)
+        if (timer > 0.07)
         {
             xMin += 1.0f / (float)xFrames;
             xMax += 1.0f / (float)xFrames;
@@ -103,7 +104,7 @@ void _player::playerActions(float deltaT)
         }
         for (int i = 0; i < 4; i++)
         {
-            if (timer > 0.08f)
+            if (timer > 0.07f)
             {
                 xMin += 1.0f / (float)xFrames;
                 xMax += 1.0f / (float)xFrames;
