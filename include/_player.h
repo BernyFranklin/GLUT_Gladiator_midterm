@@ -13,7 +13,7 @@ class _player:public _quad
         float timer =0;
         int xFrames,yFrames;
         int actionTrigger;
-        enum{STANDLEFT, STANDRIGHT,LEFTWALK,RIGHTWALK,RUN,JUMP,ATTACK,WALKUP,WALKBACK};
+        enum{STANDLEFT, STANDRIGHT,LEFTWALK,RIGHTWALK,HIT};
         bool facingLeft;
         bool facingRight;
 

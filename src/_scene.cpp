@@ -30,7 +30,7 @@ GLint _scene::initGL()
     level1->initPrlx("images/lvl1.png");
     level2->initPrlx("images/lvl2.png");
     level3->initPrlx("images/lvl3.png");
-    lvl1Player->plyInit(10, 1, "images/lvl1Player.png");
+    lvl1Player->plyInit(10, 2, "images/frog.png");
 
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
@@ -82,9 +82,9 @@ void _scene::drawScene1()
     lvl1Player->playerActions(deltaTime);
     lvl1Player->updateQuad();
     lvl1Player->drawQuad();
-    glPopMatrix();
+    // glPopMatrix();
 
-    glPushMatrix();
+    // glPushMatrix();
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
         lvl1Enms[i]->enmsActions(deltaTime);
@@ -99,7 +99,8 @@ void _scene::drawScene1()
                 vec2{lvl1Player->pos.x, lvl1Player->pos.y},
                 vec2{lvl1Enms[i]->pos.x, lvl1Enms[i]->pos.y}))
         {
-            lvl1Enms[i]->actionTrigger = lvl1Enms[i]->RIGHTWALK;
+            lvl1Enms[i]->actionTrigger = lvl1Enms[i]->HIT;
+            lvl1Player->actionTrigger = lvl1Player->HIT;
             // cout << "Player and object crossed." << endl;
         }
     }

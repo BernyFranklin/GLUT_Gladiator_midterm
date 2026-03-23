@@ -6,9 +6,9 @@ _player::_player()
     xMin = 0.0f;
     xMax = 1.0f;
     yMin = 0.0f;
-    yMax = 1.0f;
+    yMax = 0.5f;
 
-    pos.y = -1.36f;
+    pos.y = -2.56f;
 }
 
 _player::~_player()
@@ -39,10 +39,14 @@ void _player::playerActions(float deltaT)
     case STANDLEFT:
         xMin = 1.0f / (float)xFrames;
         xMax = 2.0f / (float)xFrames;
+        yMin = 0.02f / (float)yFrames;
+        yMax = 1.0f / (float)yFrames;
         break;
     case STANDRIGHT:
         xMin = 2.0f / (float)xFrames;
         xMax = 1.0f / (float)xFrames;
+        yMin = 0.02f / (float)yFrames;
+        yMax = 1.0f / (float)yFrames;
         break;
     case LEFTWALK:
         if (facingRight)
@@ -56,7 +60,7 @@ void _player::playerActions(float deltaT)
         {
             xMin += 1.0f / (float)xFrames;
             xMax += 1.0f / (float)xFrames;
-            if (pos.x > -2.6f)
+            if (pos.x > -4.6f)
             {
                 pos.x -= 0.05f;
             }
@@ -75,35 +79,38 @@ void _player::playerActions(float deltaT)
         {
             xMin += 1.0f / (float)xFrames;
             xMax += 1.0f / (float)xFrames;
-            if (pos.x < 2.6f)
+            if (pos.x < 4.6f)
             {
                 pos.x += 0.05f;
             }
             timer = 0;
         }
         break;
-    case WALKUP:
-        if (timer > 0.08)
+    case HIT:
+        if (facingRight)
         {
-            xMin += 1.0 / (float)xFrames;
-            ;
-            xMax += 1.0 / (float)xFrames;
-            yMax = 1.0 / 4.0;
-            yMin = 0.0 / 4.0;
-            timer = 0;
+            xMin = 0.0f;
+            xMax = 1.0f / (float)xFrames;
+            yMin = 1.02f / (float)yFrames;
+            yMax = 2.0f / (float)yFrames;
         }
-        break;
-    case WALKBACK:
-        if (timer > 0.08)
+        else
         {
-            xMin += 1.0 / (float)xFrames;
-            ;
-            xMax += 1.0 / (float)xFrames;
-            yMax = 1.0;
-            yMin = 3.0 / 4.0;
-            timer = 0;
+            xMin = 1.0f / (float)xFrames;
+            xMax = 0.0f / (float)xFrames;
+            yMin = 1.02f / (float)yFrames;
+            yMax = 2.0f / (float)yFrames;
         }
-
+        for (int i = 0; i < 4; i++)
+        {
+            if (timer > 0.08f)
+            {
+                xMin += 1.0f / (float)xFrames;
+                xMax += 1.0f / (float)xFrames;
+                timer = 0;
+            }
+        }
+        (facingLeft) ? actionTrigger = STANDLEFT : actionTrigger = STANDRIGHT;
         break;
     default:
         break;

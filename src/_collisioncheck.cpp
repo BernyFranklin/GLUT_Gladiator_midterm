@@ -2,19 +2,21 @@
 
 _collisionCheck::_collisionCheck()
 {
-    //ctor
+    // ctor
 }
 
 _collisionCheck::~_collisionCheck()
 {
-    //dtor
+    // dtor
 }
 
 bool _collisionCheck::isLinearCol(vec2 player, vec2 enemy)
 {
     bool crossX, crossY;
-    (enemy.y <= player.y) ? crossY = true: crossY = false; 
-    (enemy.x > (player.x - 0.125f) && enemy.x < (player.x + 0.125f))
+    cout << "Player: " << player.x << ", " << player.y << endl;
+    cout << "Enemy: " << enemy.x << ", " << enemy.y << endl;
+    (enemy.y <= player.y + 0.5f) ? crossY = true : crossY = false;
+    (enemy.x > (player.x - 0.5f) && enemy.x < (player.x + 0.5f))
         ? crossX = true
         : crossX = false;
 
@@ -23,12 +25,13 @@ bool _collisionCheck::isLinearCol(vec2 player, vec2 enemy)
 
 bool _collisionCheck::isRadialCol(vec3 p1, vec3 p2, float r1, float r2, float thrld)
 {
-  return (sqrt(pow(p1.x-p2.x,2)+
-               pow(p1.y-p2.y,2)+
-               pow(p1.z-p2.z,2))-(r1+r2)<thrld);
+    return (sqrt(pow(p1.x - p2.x, 2) +
+                 pow(p1.y - p2.y, 2) +
+                 pow(p1.z - p2.z, 2)) -
+                (r1 + r2) <
+            thrld);
 }
 
 bool _collisionCheck::isPlanoCol(vec3, vec3)
 {
-
 }

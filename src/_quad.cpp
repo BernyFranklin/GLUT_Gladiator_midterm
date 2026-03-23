@@ -6,7 +6,7 @@ _quad::_quad()
     rot.x = rot.y = rot.z = 0;
     pos.x = 0.0f;
     pos.y = 0.0f;
-    pos.z = -4.0f;
+    pos.z = -7.0f;
     scale.x = scale.y = scale.z = 0.25f;
 }
 
