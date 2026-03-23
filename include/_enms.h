@@ -25,7 +25,7 @@ class _enms:public _quad
         float vel =0;
         float t   =0;
         float theta=0;
-
+        
 
     protected:
 

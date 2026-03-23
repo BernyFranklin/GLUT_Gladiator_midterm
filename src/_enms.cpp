@@ -31,8 +31,8 @@ void _enms::enmsInit(int x, int y, char *fileName)
     xFrames = x;
     yFrames = y;
 
-    xMin = 0;
-    xMax = 1.0 / (float)xFrames;
+    xMin = 2.0 / (float)xFrames;
+    xMax = 3.0 / (float)xFrames;
     yMin = 0;
     yMax = 1.0 / (float)yFrames;
 
@@ -45,15 +45,18 @@ void _enms::enmsActions(float deltaT)
     switch (actionTrigger)
     {
     case STAND:
+        xMin = 2.0 / (float)xFrames;
+        xMax = 3.0 / (float)xFrames;
         if (timer > 0.08)
         {
-            xMin += 1.0f / (float)xFrames;
-            xMax += 1.0f / (float)xFrames;
-            pos.y -= 0.1f;
+            // xMin += 1.0f / (float)xFrames;
+            // xMax += 1.0f / (float)xFrames;
+            pos.y -= 0.2f;
             timer = 0;
             if (pos.y < -4.0f)
             {
                 pos.y = 4.0f;
+                pos.x = (float)(rand() % 7) - 3.0f;
             }
         }
         break;
@@ -62,14 +65,15 @@ void _enms::enmsActions(float deltaT)
         if (timer > 0.08)
         {
 
-            xMax < xMin ? (xMin = 0, xMax = 1.0 / (float)xFrames) : NULL;
-            xMin += 1.0 / (float)xFrames;
-            ;
-            xMax += 1.0 / (float)xFrames;
-
-            pos.x <= 4.5 ? pos.x += 2 *deltaT + 0.2 : actionTrigger = LEFTWALK;
-            pos.y = -1.4;
+            xMin += 1.0f / (float)xFrames;
+            xMax += 1.0f / (float)xFrames;
             timer = 0;
+            if (xMax > 1.0f)
+            {
+                pos.y = 4.0f;
+                pos.x = (float)(rand() % 7) - 3.0f;
+                actionTrigger = STAND;
+            }
         }
         break;
     case LEFTWALK:

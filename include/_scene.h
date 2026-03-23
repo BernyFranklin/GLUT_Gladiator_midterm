@@ -35,10 +35,12 @@ public:
     _parallax *level2 = new _parallax();
     _parallax *level3 = new _parallax();
     _player *lvl1Player = new _player();
-    _enms  *lvl1Enms = new _enms();
+    _enms  *lvl1Enms[4] = { new _enms(), new _enms(), new _enms(), new _enms() };
     _inputs *myKeys = new _inputs();
+    _collisionCheck *colCheck = new _collisionCheck();
     vec3 mouse; // to keep track of the mouse location
     vec2 dim;   // window size
+
 
 protected:
 private:

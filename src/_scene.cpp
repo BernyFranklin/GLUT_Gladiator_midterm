@@ -31,8 +31,14 @@ GLint _scene::initGL()
     level2->initPrlx("images/lvl2.png");
     level3->initPrlx("images/lvl3.png");
     lvl1Player->plyInit(10, 1, "images/lvl1Player.png");
-    lvl1Enms->enmsInit(7, 1, "images/obj1.png");
-    lvl1Enms->placeEmns(vec3{2.0f, 4.0f, -7.0f}, deltaTime);
+
+    for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
+    {
+        lvl1Enms[i]->enmsInit(7, 1, "images/obj1.png");
+        float x = (float)(rand() % 7) - 3.0f;
+        float y = (float)(rand() % 4) + 4.0f;
+        lvl1Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
+    }
     return true;
 }
 
@@ -79,10 +85,24 @@ void _scene::drawScene1()
     glPopMatrix();
 
     glPushMatrix();
-    lvl1Enms->enmsActions(deltaTime);
-    lvl1Enms->updateQuad();
-    lvl1Enms->drawQuad();
+    for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
+    {
+        lvl1Enms[i]->enmsActions(deltaTime);
+        lvl1Enms[i]->updateQuad();
+        lvl1Enms[i]->drawQuad();
+    }
     glPopMatrix();
+
+    for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
+    {
+        if (colCheck->isLinearCol(
+                vec2{lvl1Player->pos.x, lvl1Player->pos.y},
+                vec2{lvl1Enms[i]->pos.x, lvl1Enms[i]->pos.y}))
+        {
+            lvl1Enms[i]->actionTrigger = lvl1Enms[i]->RIGHTWALK;
+            // cout << "Player and object crossed." << endl;
+        }
+    }
 }
 
 void _scene::drawScene2()

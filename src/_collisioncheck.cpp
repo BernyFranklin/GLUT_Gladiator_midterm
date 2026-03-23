@@ -10,9 +10,15 @@ _collisionCheck::~_collisionCheck()
     //dtor
 }
 
-bool _collisionCheck::isLinearCol(vec3, vec3)
+bool _collisionCheck::isLinearCol(vec2 player, vec2 enemy)
 {
+    bool crossX, crossY;
+    (enemy.y <= player.y) ? crossY = true: crossY = false; 
+    (enemy.x > (player.x - 0.125f) && enemy.x < (player.x + 0.125f))
+        ? crossX = true
+        : crossX = false;
 
+    return (crossX && crossY);
 }
 
 bool _collisionCheck::isRadialCol(vec3 p1, vec3 p2, float r1, float r2, float thrld)

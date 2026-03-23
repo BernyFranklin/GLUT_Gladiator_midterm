@@ -9,7 +9,7 @@ class _collisionCheck
         _collisionCheck();
         virtual ~_collisionCheck();
 
-        bool isLinearCol(vec3,vec3); // check only xy
+        bool isLinearCol(vec2,vec2); // check only xy
         bool isRadialCol(vec3,vec3,float,float,float);
          //positions, radius, threshold
         bool isPlanoCol(vec3,vec3);
