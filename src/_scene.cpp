@@ -30,7 +30,9 @@ GLint _scene::initGL()
     level1->initPrlx("images/lvl1.png");
     level2->initPrlx("images/lvl2.png");
     level3->initPrlx("images/lvl3.png");
-    lvl1Player->plyInit(10, 2, "images/frog.png");
+    lvl1Player->lvl1PlayerInit(
+        lvl1Player->xFrames1,
+        lvl1Player->yFrames1, "images/frog.png");
 
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
@@ -60,7 +62,7 @@ void _scene::reSize(GLint width, GLint height)
 
 float _scene::deltaTime = 0; // initializing static variable
 
-void _scene::drawScene1()
+void _scene::drawScene()
 {
     // Level 1
     if (playLevel1)
@@ -76,7 +78,6 @@ void _scene::drawScene1()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // Clear buffers
         glLoadIdentity();
-        glColor3f(1.0, 0, 1.0); // sett color for my model
 
         glPushMatrix();
         glScalef(13.3f, 13.3f, 1.0f);
@@ -114,7 +115,7 @@ void _scene::drawScene1()
                 cout << "Hit counter: " << hitCounter << endl;
             }
         }
-        if (hitCounter >= 5)
+        if (hitCounter >= MAX_HITS)
         {
             // TO DO: Add constant for start position
             lvl1Player->pos.x = lvl1Player->START_OF_LEVEL;
@@ -141,7 +142,6 @@ void _scene::drawScene1()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // Clear buffers
         glLoadIdentity();
-        glColor3f(1.0, 0, 1.0); // sett color for my model
 
         glPushMatrix();
         glScalef(13.3f, 13.3f, 1.0f);

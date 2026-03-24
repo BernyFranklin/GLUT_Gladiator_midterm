@@ -2,13 +2,6 @@
 
 _player::_player()
 {
-    // ctor
-    xMin = 0.0f;
-    xMax = 1.0f;
-    yMin = 0.0f;
-    yMax = 0.5f;
-
-    pos.y = -2.56f;
     pos.x = START_OF_LEVEL;
 }
 
@@ -17,7 +10,7 @@ _player::~_player()
     // dtor
 }
 
-void _player::plyInit(int x, int y, char *fileName)
+void _player::lvl1PlayerInit(int x, int y, char *fileName)
 {
     initQuad(fileName);
     xFrames = x;
@@ -29,6 +22,7 @@ void _player::plyInit(int x, int y, char *fileName)
     yMax = 1.0f / (float)yFrames;
     facingLeft = false;
     facingRight = true;
+    pos.y = yPosLvl1;
 }
 
 void _player::playerActions(float deltaT)

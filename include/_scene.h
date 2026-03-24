@@ -20,7 +20,7 @@ public:
 
     GLint initGL();            // initialize the openGL contents
     void reSize(GLint, GLint); // to handle resize window
-    void drawScene1();         // render the final scene
+    void drawScene();         // render the final scene
     void drawScene2();
     void drawScene3();
     int winMsg(HWND hWnd,     // Handle For This Window
@@ -52,6 +52,7 @@ public:
     vec3 mouse; // to keep track of the mouse location
     vec2 dim;   // window size
     int hitCounter = 0;
+    const int MAX_HITS = 5;
     bool playLevel1 = true;
     bool playLevel2 = false;
     bool playLevel3 = false;
