@@ -12,6 +12,7 @@ public:
     float timer = 0;
     int xFrames, yFrames;
     int actionTrigger;
+    float initialFrameMinX, initialFrameMaxX, initialFrameMinY, initialFrameMaxY;
     bool isDead = false;
     enum
     {
@@ -26,6 +27,8 @@ public:
     };
 
     void enmsInit(int, int, char *);
+    void skullInit(char *);
+    void gasInit(char *);
     void enmsActions(float);
     void placeEmns(vec3, float);
     void drawEnms();

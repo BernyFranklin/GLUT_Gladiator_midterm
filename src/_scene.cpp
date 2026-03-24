@@ -36,11 +36,20 @@ GLint _scene::initGL()
 
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
-        lvl1Enms[i]->enmsInit(7, 1, "images/obj1.png");
+        lvl1Enms[i]->skullInit("images/fallingSkull.png");
         float x = (float)(rand() % 7) - 3.0f;
-        float y = (float)(rand() % 4) + 4.0f;
+        float y = (float)(rand() % 7) + 4.0f;
         lvl1Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
     }
+
+    for (int i = 0; i < sizeof(lvl2Enms) / sizeof(lvl2Enms[0]); i++)
+    {
+        lvl2Enms[i]->gasInit("images/fallingGas.png");
+        float x = (float)(rand() % 7) - 3.0f;
+        float y = (float)(rand() % 7) + 4.0f;
+        lvl2Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
+    }
+
     return true;
 }
 
@@ -155,7 +164,37 @@ void _scene::drawScene()
         lvl2Player->playerActions(deltaTime);
         lvl2Player->updateQuad();
         lvl2Player->drawQuad();
+        for (int i = 0; i < sizeof(lvl2Enms) / sizeof(lvl2Enms[0]); i++)
+        {
+            lvl2Enms[i]->enmsActions(deltaTime);
+            lvl2Enms[i]->updateQuad();
+            lvl2Enms[i]->drawQuad();
+        }
         glPopMatrix();
+
+        // Check for collisions
+        for (int i = 0; i < sizeof(lvl2Enms) / sizeof(lvl2Enms[0]); i++)
+        {
+            if (colCheck->isLinearCol(
+                    vec2{lvl2Player->pos.x, lvl2Player->pos.y},
+                    vec2{lvl2Enms[i]->pos.x, lvl2Enms[i]->pos.y}))
+            {
+                lvl2Enms[i]->actionTrigger = lvl2Enms[i]->HIT;
+                lvl2Player->actionTrigger = lvl2Player->HIT;
+                if (!lvl2Enms[i]->isDead)
+                {
+                    lvl2Enms[i]->isDead = true;
+                    hitCounter++;
+                }
+                cout << "Hit counter: " << hitCounter << endl;
+            }
+        }
+        if (hitCounter >= MAX_HITS)
+        {
+            // TO DO: Add constant for start position
+            lvl2Player->pos.x = lvl2Player->START_OF_LEVEL;
+            hitCounter = 0;
+        }
     }
 }
 

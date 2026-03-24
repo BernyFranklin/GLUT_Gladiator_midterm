@@ -48,6 +48,18 @@ public:
             new _enms(),
             new _enms(),
             new _enms()};
+    _enms *lvl2Enms[10] =
+        {
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms(),
+            new _enms()};
     _inputs *myKeys = new _inputs();
     _collisionCheck *colCheck = new _collisionCheck();
     vec3 mouse; // to keep track of the mouse location
