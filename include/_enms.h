@@ -26,7 +26,7 @@ public:
         ROLRIGHT
     };
 
-    void enmsInit(int, int, char *);
+    void enmsInit(int, int, float, float, float, float, char *);
     void skullInit(char *);
     void gasInit(char *);
     void enmsActions(float);

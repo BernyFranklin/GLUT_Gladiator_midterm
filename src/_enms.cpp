@@ -25,16 +25,21 @@ _enms::~_enms()
     // dtor
 }
 
-void _enms::enmsInit(int x, int y, char *fileName)
+void _enms::enmsInit(int x, int y, float minX, float maxX, float minY, float maxY, char *fileName)
 {
     initQuad(fileName);
     xFrames = x;
     yFrames = y;
 
-    xMin = 2.0 / (float)xFrames;
-    xMax = 3.0 / (float)xFrames;
-    yMin = 0;
-    yMax = 1.0 / (float)yFrames;
+    initialFrameMinX = minX / (float)xFrames;
+    initialFrameMaxX = maxX / (float)xFrames;
+    initialFrameMinY = minY / (float)yFrames;
+    initialFrameMaxY = maxY / (float)yFrames;
+
+    xMin = initialFrameMinX;
+    xMax = initialFrameMaxX;
+    yMin = initialFrameMinY;
+    yMax = initialFrameMaxY;
 
     actionTrigger = FALL;
 }

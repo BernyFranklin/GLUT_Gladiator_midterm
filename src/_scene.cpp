@@ -36,7 +36,7 @@ GLint _scene::initGL()
 
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
-        lvl1Enms[i]->skullInit("images/fallingSkull.png");
+        lvl1Enms[i]->enmsInit(7, 1, 2.0f, 3.0f, 0.0f, 1.0f, "images/fallingSkull.png");
         float x = (float)(rand() % 7) - 3.0f;
         float y = (float)(rand() % 7) + 4.0f;
         lvl1Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
@@ -44,7 +44,7 @@ GLint _scene::initGL()
 
     for (int i = 0; i < sizeof(lvl2Enms) / sizeof(lvl2Enms[0]); i++)
     {
-        lvl2Enms[i]->gasInit("images/fallingGas.png");
+        lvl2Enms[i]->enmsInit(6, 1, 0.0f, 1.0f, 0.0f, 1.0f, "images/fallingGas.png");
         float x = (float)(rand() % 7) - 3.0f;
         float y = (float)(rand() % 7) + 4.0f;
         lvl2Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
