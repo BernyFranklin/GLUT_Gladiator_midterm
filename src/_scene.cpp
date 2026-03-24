@@ -30,9 +30,11 @@ GLint _scene::initGL()
     level1->initPrlx("images/lvl1.png");
     level2->initPrlx("images/lvl2.png");
     level3->initPrlx("images/lvl3.png");
+
     lvl1Player->lvl1PlayerInit(
         lvl1Player->xFrames1,
         lvl1Player->yFrames1, "images/frog.png");
+    
 
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
