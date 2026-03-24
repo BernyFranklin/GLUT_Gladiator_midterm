@@ -31,7 +31,7 @@ public:
 
     void lvl1PlayerInit(char *);
     void lvl2PlayerInit(char *);
-    void lvl3PlayerInit(int, int, char *);
+    void lvl3PlayerInit(char *);
     void playerActions(float);
 
 protected:

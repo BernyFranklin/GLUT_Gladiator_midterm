@@ -33,6 +33,7 @@ GLint _scene::initGL()
 
     lvl1Player->lvl1PlayerInit("images/frog.png");
     lvl2Player->lvl2PlayerInit("images/mushroom.png");
+    lvl3Player->lvl3PlayerInit("images/spaceman.png");
 
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
@@ -195,62 +196,41 @@ void _scene::drawScene()
             lvl2Player->pos.x = lvl2Player->START_OF_LEVEL;
             hitCounter = 0;
         }
+
+        if (lvl2Player->pos.x >= lvl2Player->END_OF_LEVEL)
+        {
+            playLevel2 = false;
+            playLevel3 = true;
+        }
     }
-}
 
-void _scene::drawScene2()
-{
-    auto currentTime = chrono::steady_clock::now();
+    if (playLevel3)
+    {
+        // Initiiate current time for delta use
+        auto currentTime = chrono::steady_clock::now();
+        // Calculate the elapsed time since the last frame
+        chrono::duration<float> elapsed = currentTime - lastTime;
+        _scene::deltaTime = elapsed.count();
+        // Update lastTime
+        lastTime = currentTime;
 
-    chrono::duration<float> elapsed = currentTime - lastTime;
-    _scene::deltaTime = elapsed.count();
-    lastTime = currentTime;
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // Clear buffers
+        glLoadIdentity();
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // Clear buffers
-    glLoadIdentity();
-    glColor3f(1.0, 0, 1.0); // sett color for my model
-
-    glPushMatrix();
-    glScalef(13.3f, 13.3f, 1.0f);
-    level2->xMax = 1.0f;
-    level2->yMin = 0.1f;
-    level2->drawBckGrnd(dim.x, dim.y);
-    glPopMatrix();
-
-    glPushMatrix();
-    lvl1Player->pos.y = -1.16f;
-    lvl1Player->playerActions(deltaTime);
-    lvl1Player->updateQuad();
-    lvl1Player->drawQuad();
-    glPopMatrix();
-}
-
-void _scene::drawScene3()
-{
-    auto currentTime = chrono::steady_clock::now();
-
-    chrono::duration<float> elapsed = currentTime - lastTime;
-    _scene::deltaTime = elapsed.count();
-    lastTime = currentTime;
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // Clear buffers
-    glLoadIdentity();
-    glColor3f(1.0, 0, 1.0); // sett color for my model
-
-    glPushMatrix();
-    glScalef(13.3f, 13.3f, 1.0f);
-    level3->xMax = 0.5f;
-    level3->drawBckGrnd(dim.x, dim.y);
-    glPopMatrix();
-
-    glPushMatrix();
-    lvl1Player->pos.y = -1.06f;
-    lvl1Player->playerActions(deltaTime);
-    lvl1Player->updateQuad();
-    lvl1Player->drawQuad();
-    glPopMatrix();
+        glPushMatrix();
+        glScalef(13.3f, 13.3f, 1.0f);
+        level3->xMax = 0.5f;
+        level3->yMin = 0.0f;
+        level3->drawBckGrnd(dim.x, dim.y);
+        glPopMatrix();
+        glPushMatrix();
+        // Draw player
+        lvl3Player->playerActions(deltaTime);
+        lvl3Player->updateQuad();
+        lvl3Player->drawQuad();
+        glPopMatrix();
+    }
 }
 
 void _scene::mouseMapping(int x, int y)
@@ -280,12 +260,14 @@ int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         myKeys->wParam = wParam;
         myKeys->keyPressed(lvl1Player);
         myKeys->keyPressed(lvl2Player);
+        myKeys->keyPressed(lvl3Player);
         break;
 
     case WM_KEYUP:
         myKeys->wParam = wParam;
         myKeys->keyUp(lvl1Player);
         myKeys->keyUp(lvl2Player);
+        myKeys->keyUp(lvl3Player);
         break;
 
     case WM_LBUTTONDOWN:

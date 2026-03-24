@@ -37,13 +37,33 @@ void _player::lvl2PlayerInit(char *fileName)
     standRightMin = 2.0f / (float)xFrames;
     standRightMax = 3.0f / (float)xFrames;
 
-    xMin = standLeftMin;
-    xMax = standLeftMax;
+    xMin = standRightMin;
+    xMax = standRightMax;
     yMin = 0.0f / (float)yFrames;
     yMax = 1.0f / (float)yFrames;
     facingLeft = false;
     facingRight = true;
     pos.y = yPosLvl2;
+}
+
+void _player::lvl3PlayerInit(char *fileName)
+{
+    initQuad(fileName);
+
+    standLeftMin = 3.0f / (float)xFrames;
+    standLeftMax = 2.0f / (float)xFrames;
+    standRightMin = 2.0f / (float)xFrames;
+    standRightMax = 3.0f / (float)xFrames;
+
+    xMin = standRightMin;
+    xMax = standRightMax;
+    yMin = 0.05f / (float)yFrames;
+    yMax = 1.0f / (float)yFrames;
+    facingLeft = false;
+    facingRight = true;
+    scale.x = 0.75f;
+    scale.y = 0.75f;
+    pos.y = -1.8f;
 }
 
 void _player::playerActions(float deltaT)

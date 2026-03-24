@@ -36,6 +36,7 @@ public:
     _parallax *level3 = new _parallax();
     _player *lvl1Player = new _player();
     _player *lvl2Player = new _player();
+    _player *lvl3Player = new _player();
     _enms *lvl1Enms[10] =
         {
             new _enms(),
@@ -66,9 +67,9 @@ public:
     vec2 dim;   // window size
     int hitCounter = 0;
     const int MAX_HITS = 5;
-    bool playLevel1 = true;
+    bool playLevel1 = false;
     bool playLevel2 = false;
-    bool playLevel3 = false;
+    bool playLevel3 = true;
 
 protected:
 private:
