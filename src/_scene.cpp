@@ -30,6 +30,7 @@ GLint _scene::initGL()
     level1->initPrlx("images/lvl1.png");
     level2->initPrlx("images/lvl2.png");
     level3->initPrlx("images/lvl3.png");
+    endScreen->initPrlx("images/endScreen.png");
 
     lvl1Player->lvl1PlayerInit("images/frog.png");
     lvl2Player->lvl2PlayerInit("images/mushroom.png");
@@ -229,6 +230,28 @@ void _scene::drawScene()
         lvl3Player->playerActions(deltaTime);
         lvl3Player->updateQuad();
         lvl3Player->drawQuad();
+        glPopMatrix();
+
+        if (lvl3Player->pos.x >= lvl3Player->END_OF_LEVEL)
+        {
+            playLevel3 = false;
+            endGame = true;
+        }
+    }
+
+    if (endGame)
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // Clear buffers
+        glLoadIdentity();
+
+        glPushMatrix();
+        glScalef(13.3f, 13.3f, 1.0f);
+        endScreen->xMin = 0.0f;
+        endScreen->xMax = 1.0f;
+        endScreen->yMin = 0.0f;
+        endScreen->yMax = 1.0f;
+        endScreen->drawBckGrnd(dim.x, dim.y);
         glPopMatrix();
     }
 }

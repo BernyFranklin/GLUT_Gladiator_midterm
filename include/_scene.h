@@ -34,6 +34,7 @@ public:
     _parallax *level1 = new _parallax();
     _parallax *level2 = new _parallax();
     _parallax *level3 = new _parallax();
+    _parallax *endScreen = new _parallax();
     _player *lvl1Player = new _player();
     _player *lvl2Player = new _player();
     _player *lvl3Player = new _player();
@@ -67,9 +68,10 @@ public:
     vec2 dim;   // window size
     int hitCounter = 0;
     const int MAX_HITS = 5;
-    bool playLevel1 = false;
+    bool playLevel1 = true;
     bool playLevel2 = false;
-    bool playLevel3 = true;
+    bool playLevel3 = false;
+    bool endGame = false;
 
 protected:
 private:
