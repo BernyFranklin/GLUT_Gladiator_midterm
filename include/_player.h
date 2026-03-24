@@ -12,10 +12,11 @@ public:
     const float END_OF_LEVEL = 4.6f;
     const float START_OF_LEVEL = -4.6f;
     const float yPosLvl1 = -2.56f;
-    const int xFrames1 = 10;
-    const int yFrames1 = 2;
+    const float yPosLvl2 = -2.26f;
+    const int xFrames = 10;
+    const int yFrames = 2;
     float timer = 0.0f;
-    int xFrames, yFrames;
+    float standLeftMin, standLeftMax, standRightMin, standRightMax;
     int actionTrigger;
     enum
     {
@@ -28,7 +29,9 @@ public:
     bool facingLeft;
     bool facingRight;
 
-    void lvl1PlayerInit(int, int, char *);
+    void lvl1PlayerInit(char *);
+    void lvl2PlayerInit(char *);
+    void lvl3PlayerInit(int, int, char *);
     void playerActions(float);
 
 protected:

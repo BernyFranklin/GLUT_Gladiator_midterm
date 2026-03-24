@@ -31,10 +31,8 @@ GLint _scene::initGL()
     level2->initPrlx("images/lvl2.png");
     level3->initPrlx("images/lvl3.png");
 
-    lvl1Player->lvl1PlayerInit(
-        lvl1Player->xFrames1,
-        lvl1Player->yFrames1, "images/frog.png");
-    
+    lvl1Player->lvl1PlayerInit("images/frog.png");
+    lvl2Player->lvl2PlayerInit("images/mushroom.png");
 
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
@@ -151,6 +149,13 @@ void _scene::drawScene()
         level2->yMin = 0.1f;
         level2->drawBckGrnd(dim.x, dim.y);
         glPopMatrix();
+
+        glPushMatrix();
+        // Draw player
+        lvl2Player->playerActions(deltaTime);
+        lvl2Player->updateQuad();
+        lvl2Player->drawQuad();
+        glPopMatrix();
     }
 }
 
@@ -235,11 +240,13 @@ int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_KEYDOWN:
         myKeys->wParam = wParam;
         myKeys->keyPressed(lvl1Player);
+        myKeys->keyPressed(lvl2Player);
         break;
 
     case WM_KEYUP:
         myKeys->wParam = wParam;
         myKeys->keyUp(lvl1Player);
+        myKeys->keyUp(lvl2Player);
         break;
 
     case WM_LBUTTONDOWN:

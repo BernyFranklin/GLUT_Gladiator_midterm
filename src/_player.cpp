@@ -10,19 +10,40 @@ _player::~_player()
     // dtor
 }
 
-void _player::lvl1PlayerInit(int x, int y, char *fileName)
+void _player::lvl1PlayerInit(char *fileName)
 {
     initQuad(fileName);
-    xFrames = x;
-    yFrames = y;
 
-    xMin = 2.0f / (float)xFrames;
-    xMax = 1.0f / (float)xFrames;
+    standLeftMin = 1.0f / (float)xFrames;
+    standLeftMax = 2.0f / (float)xFrames;
+    standRightMin = 2.0f / (float)xFrames;
+    standRightMax = 1.0f / (float)xFrames;
+
+    xMin = standRightMin;
+    xMax = standRightMax;
     yMin = 0.02f / (float)yFrames;
     yMax = 1.0f / (float)yFrames;
     facingLeft = false;
     facingRight = true;
     pos.y = yPosLvl1;
+}
+
+void _player::lvl2PlayerInit(char *fileName)
+{
+    initQuad(fileName);
+
+    standLeftMin = 3.0f / (float)xFrames;
+    standLeftMax = 2.0f / (float)xFrames;
+    standRightMin = 2.0f / (float)xFrames;
+    standRightMax = 3.0f / (float)xFrames;
+
+    xMin = standLeftMin;
+    xMax = standLeftMax;
+    yMin = 0.0f / (float)yFrames;
+    yMax = 1.0f / (float)yFrames;
+    facingLeft = false;
+    facingRight = true;
+    pos.y = yPosLvl2;
 }
 
 void _player::playerActions(float deltaT)
@@ -32,22 +53,22 @@ void _player::playerActions(float deltaT)
     {
 
     case STANDLEFT:
-        xMin = 1.0f / (float)xFrames;
-        xMax = 2.0f / (float)xFrames;
+        xMin = standLeftMin;
+        xMax = standLeftMax;
         yMin = 0.02f / (float)yFrames;
         yMax = 1.0f / (float)yFrames;
         break;
     case STANDRIGHT:
-        xMin = 2.0f / (float)xFrames;
-        xMax = 1.0f / (float)xFrames;
+        xMin = standRightMin;
+        xMax = standRightMax;
         yMin = 0.02f / (float)yFrames;
         yMax = 1.0f / (float)yFrames;
         break;
     case LEFTWALK:
         if (facingRight)
         {
-            xMin = 1.0f / (float)xFrames;
-            xMax = 2.0f / (float)xFrames;
+            xMin = standLeftMin;
+            xMax = standLeftMax;
             facingRight = false;
             facingLeft = true;
         }
@@ -65,8 +86,8 @@ void _player::playerActions(float deltaT)
     case RIGHTWALK:
         if (facingLeft)
         {
-            xMin = 2.0f / (float)xFrames;
-            xMax = 1.0f / (float)xFrames;
+            xMin = standRightMin;
+            xMax = standRightMax;
             facingLeft = false;
             facingRight = true;
         }

@@ -20,7 +20,7 @@ public:
 
     GLint initGL();            // initialize the openGL contents
     void reSize(GLint, GLint); // to handle resize window
-    void drawScene();         // render the final scene
+    void drawScene();          // render the final scene
     void drawScene2();
     void drawScene3();
     int winMsg(HWND hWnd,     // Handle For This Window
@@ -35,6 +35,7 @@ public:
     _parallax *level2 = new _parallax();
     _parallax *level3 = new _parallax();
     _player *lvl1Player = new _player();
+    _player *lvl2Player = new _player();
     _enms *lvl1Enms[10] =
         {
             new _enms(),
