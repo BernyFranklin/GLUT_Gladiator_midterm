@@ -12,6 +12,7 @@ public:
     float timer = 0;
     int xFrames, yFrames;
     int actionTrigger;
+    bool isDead = false;
     enum
     {
         FALL,

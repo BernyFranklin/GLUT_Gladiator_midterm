@@ -13,6 +13,7 @@ class _collisionCheck
         bool isRadialCol(vec3,vec3,float,float,float);
          //positions, radius, threshold
         bool isPlanoCol(vec3,vec3);
+        const float COLLISION_THRESHOLD = 0.3f;
 
     protected:
 

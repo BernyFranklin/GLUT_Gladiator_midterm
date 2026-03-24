@@ -13,8 +13,8 @@ _collisionCheck::~_collisionCheck()
 bool _collisionCheck::isLinearCol(vec2 player, vec2 enemy)
 {
     bool crossX, crossY;
-    (enemy.y <= player.y + 0.5f) ? crossY = true : crossY = false;
-    (enemy.x > (player.x - 0.5f) && enemy.x < (player.x + 0.5f))
+    (enemy.y <= player.y + COLLISION_THRESHOLD) ? crossY = true : crossY = false;
+    (enemy.x > (player.x - COLLISION_THRESHOLD) && enemy.x < (player.x + COLLISION_THRESHOLD))
         ? crossX = true
         : crossX = false;
 

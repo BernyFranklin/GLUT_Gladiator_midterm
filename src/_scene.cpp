@@ -62,6 +62,7 @@ float _scene::deltaTime = 0; // initializing static variable
 
 void _scene::drawScene1()
 {
+    // Level 1
     if (playLevel1)
     {
         // Initiiate current time for delta use
@@ -105,15 +106,25 @@ void _scene::drawScene1()
             {
                 lvl1Enms[i]->actionTrigger = lvl1Enms[i]->HIT;
                 lvl1Player->actionTrigger = lvl1Player->HIT;
-                hitCounter++;
+                if (!lvl1Enms[i]->isDead)
+                {
+                    lvl1Enms[i]->isDead = true;
+                    hitCounter++;
+                }
                 cout << "Hit counter: " << hitCounter << endl;
             }
         }
         if (hitCounter >= 5)
         {
-            //playLevel1 = false;
-            //playLevel2 = true;
-            //hitCounter = 0;
+            // TO DO: Add constant for start position
+            lvl1Player->pos.x = lvl1Player->START_OF_LEVEL;
+            hitCounter = 0;
+        }
+
+        if (lvl1Player->pos.x >= lvl1Player->END_OF_LEVEL)
+        {
+            playLevel1 = false;
+            playLevel2 = true;
         }
     }
 
@@ -131,6 +142,13 @@ void _scene::drawScene1()
         // Clear buffers
         glLoadIdentity();
         glColor3f(1.0, 0, 1.0); // sett color for my model
+
+        glPushMatrix();
+        glScalef(13.3f, 13.3f, 1.0f);
+        level2->xMax = 1.0f;
+        level2->yMin = 0.1f;
+        level2->drawBckGrnd(dim.x, dim.y);
+        glPopMatrix();
     }
 }
 

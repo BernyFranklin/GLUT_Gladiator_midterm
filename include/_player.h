@@ -10,7 +10,9 @@ class _player:public _quad
     public:
         _player();
         virtual ~_player();
-        float timer =0;
+        const float END_OF_LEVEL = 4.6f;
+        const float START_OF_LEVEL = -4.6f;
+        float timer = 0.0f;
         int xFrames,yFrames;
         int actionTrigger;
         enum{STANDLEFT, STANDRIGHT,LEFTWALK,RIGHTWALK,HIT};

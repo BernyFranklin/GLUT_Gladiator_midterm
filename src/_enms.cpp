@@ -71,14 +71,14 @@ void _enms::enmsActions(float deltaT)
                 pos.y = 4.0f;
                 pos.x = (float)(rand() % 7) - 3.0f;
                 actionTrigger = FALL;
+                isDead = false;
             }
         }
         break;
     case LEFTWALK:
         if (timer > 0.08)
         {
-            
-        }
+                }
         break;
     case ROLLEFT:
 

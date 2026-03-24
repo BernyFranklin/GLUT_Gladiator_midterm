@@ -9,7 +9,7 @@ _player::_player()
     yMax = 0.5f;
 
     pos.y = -2.56f;
-    pos.x = -4.6f;
+    pos.x = START_OF_LEVEL;
 }
 
 _player::~_player()
@@ -80,10 +80,7 @@ void _player::playerActions(float deltaT)
         {
             xMin += 1.0f / (float)xFrames;
             xMax += 1.0f / (float)xFrames;
-            if (pos.x < 4.6f)
-            {
-                pos.x += 0.05f;
-            }
+            pos.x += 0.05f;
             timer = 0;
         }
         break;
