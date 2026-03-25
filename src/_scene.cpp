@@ -52,6 +52,14 @@ GLint _scene::initGL()
         lvl2Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
     }
 
+    for (int i = 0; i < sizeof(lvl3Enms) / sizeof(lvl3Enms[0]); i++)
+    {
+        lvl3Enms[i]->enmsInit(7, 1, 1.0f, 2.0f, 0.0f, 1.0f, "images/fallingOrb.png");
+        float x = (float)(rand() % 7) - 3.0f;
+        float y = (float)(rand() % 7) + 4.0f;
+        lvl3Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
+    }
+
     return true;
 }
 
@@ -230,7 +238,38 @@ void _scene::drawScene()
         lvl3Player->playerActions(deltaTime);
         lvl3Player->updateQuad();
         lvl3Player->drawQuad();
+        // Draw enemies
+        for (int i = 0; i < sizeof(lvl3Enms) / sizeof(lvl3Enms[0]); i++)
+        {
+            lvl3Enms[i]->enmsActions(deltaTime);
+            lvl3Enms[i]->updateQuad();
+            lvl3Enms[i]->drawQuad();
+        }
         glPopMatrix();
+
+        // Check for collisions
+        for (int i = 0; i < sizeof(lvl3Enms) / sizeof(lvl3Enms[0]); i++)
+        {
+            if (colCheck->isLinearCol(
+                    vec2{lvl3Player->pos.x, lvl3Player->pos.y},
+                    vec2{lvl3Enms[i]->pos.x, lvl3Enms[i]->pos.y}))
+            {
+                lvl3Enms[i]->actionTrigger = lvl3Enms[i]->HIT;
+                lvl3Player->actionTrigger = lvl3Player->HIT;
+                if (!lvl3Enms[i]->isDead)
+                {
+                    lvl3Enms[i]->isDead = true;
+                    hitCounter++;
+                }
+                cout << "Hit counter: " << hitCounter << endl;
+            }
+        }
+        if (hitCounter >= MAX_HITS)
+        {
+            // TO DO: Add constant for start position
+            lvl3Player->pos.x = lvl3Player->START_OF_LEVEL;
+            hitCounter = 0;
+        }
 
         if (lvl3Player->pos.x >= lvl3Player->END_OF_LEVEL)
         {

@@ -44,43 +44,6 @@ void _enms::enmsInit(int x, int y, float minX, float maxX, float minY, float max
     actionTrigger = FALL;
 }
 
-void _enms::skullInit(char *fileName)
-{
-    initQuad(fileName);
-    xFrames = 7;
-    yFrames = 1;
-
-    initialFrameMinX = 2.0f / (float)xFrames;
-    initialFrameMaxX = 3.0f / (float)xFrames;
-    initialFrameMinY = 0.0f / (float)yFrames;
-    initialFrameMaxY = 1.0f / (float)yFrames;
-
-    xMin = initialFrameMinX;
-    xMax = initialFrameMaxX;
-    yMin = initialFrameMinY;
-    yMax = initialFrameMaxY;
-
-    actionTrigger = FALL;
-}
-
-void _enms::gasInit(char *fileName)
-{
-    initQuad(fileName);
-    xFrames = 6;
-    yFrames = 1;
-
-    initialFrameMinX = 0.0f / (float)xFrames;
-    initialFrameMaxX = 1.0f / (float)xFrames;
-    initialFrameMinY = 0.0f / (float)yFrames;
-    initialFrameMaxY = 1.0f / (float)yFrames;
-
-    xMin = initialFrameMinX;
-    xMax = initialFrameMaxX;
-    yMin = initialFrameMinY;
-    yMax = initialFrameMaxY;
-
-    actionTrigger = FALL;
-}
 
 void _enms::enmsActions(float deltaT)
 {
