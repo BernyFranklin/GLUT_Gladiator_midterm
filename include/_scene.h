@@ -21,7 +21,7 @@ public:
     GLint initGL();            // initialize the openGL contents
     void reSize(GLint, GLint); // to handle resize window
     void drawScene();          // render the final scene
-    void loadLevel(_parallax, _player, _enms *);
+    void loadLevel(_parallax*, _player*, _enms*[], int);
     int winMsg(HWND hWnd,     // Handle For This Window
                UINT uMsg,     // Message For This Window
                WPARAM wParam, // Additional Message Information
@@ -29,6 +29,7 @@ public:
 
     void mouseMapping(int, int);
     static float deltaTime;
+    static const int ENMS_COUNT = 10;
 
     _parallax *level1 = new _parallax();
     _parallax *level2 = new _parallax();
@@ -37,7 +38,7 @@ public:
     _player *lvl1Player = new _player();
     _player *lvl2Player = new _player();
     _player *lvl3Player = new _player();
-    _enms *lvl1Enms[10] =
+    _enms *lvl1Enms[ENMS_COUNT] =
         {
             new _enms(),
             new _enms(),
@@ -49,7 +50,7 @@ public:
             new _enms(),
             new _enms(),
             new _enms()};
-    _enms *lvl2Enms[10] =
+    _enms *lvl2Enms[ENMS_COUNT] =
         {
             new _enms(),
             new _enms(),
@@ -61,7 +62,7 @@ public:
             new _enms(),
             new _enms(),
             new _enms()};
-    _enms *lvl3Enms[10] =
+    _enms *lvl3Enms[ENMS_COUNT] =
         {
             new _enms(),
             new _enms(),

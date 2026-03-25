@@ -38,7 +38,7 @@ GLint _scene::initGL()
     lvl3Player->scale.x = 0.75f;
     lvl3Player->scale.y = 0.75f;
     // Set enemy objects
-    for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
+    for (int i = 0; i < _scene::ENMS_COUNT; i++)
     {
         lvl1Enms[i]->enmsInit(7, 1, 2.0f, 3.0f, 0.0f, 1.0f, "images/fallingSkull.png");
         float x = (float)(rand() % 7) - 3.0f;
@@ -46,7 +46,7 @@ GLint _scene::initGL()
         lvl1Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
     }
 
-    for (int i = 0; i < sizeof(lvl2Enms) / sizeof(lvl2Enms[0]); i++)
+    for (int i = 0; i < _scene::ENMS_COUNT; i++)
     {
         lvl2Enms[i]->enmsInit(6, 1, 0.0f, 1.0f, 0.0f, 1.0f, "images/fallingGas.png");
         float x = (float)(rand() % 7) - 3.0f;
@@ -54,7 +54,7 @@ GLint _scene::initGL()
         lvl2Enms[i]->placeEmns(vec3{x, y, -7.0f}, deltaTime);
     }
 
-    for (int i = 0; i < sizeof(lvl3Enms) / sizeof(lvl3Enms[0]); i++)
+    for (int i = 0; i < _scene::ENMS_COUNT; i++)
     {
         lvl3Enms[i]->enmsInit(7, 1, 1.0f, 2.0f, 0.0f, 1.0f, "images/fallingOrb.png");
         float x = (float)(rand() % 7) - 3.0f;
@@ -97,185 +97,53 @@ void _scene::drawScene()
     // Level 1
     if (playLevel1)
     {
-        // Set collision threshold for level since players and objects vary in size.
-        collisionThreshX = 0.25f;
-        collisionThreshY = 0.25f;
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // Clear buffers
-        glLoadIdentity();
-
-        glPushMatrix();
-        glScalef(13.3f, 13.3f, 1.0f);
-        level1->drawBckGrnd(dim.x, dim.y);
-        glPopMatrix();
-        glPushMatrix();
-        // Draw player
-        lvl1Player->playerActions(deltaTime);
-        lvl1Player->updateQuad();
-        lvl1Player->drawQuad();
-        // Draw enemies
-        for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
-        {
-            lvl1Enms[i]->enmsActions(deltaTime);
-            lvl1Enms[i]->updateQuad();
-            lvl1Enms[i]->drawQuad();
-        }
-        glPopMatrix();
-
-        // Check for collisions
-        for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
-        {
-            if (colCheck->isLinearCol(
-                    vec2{lvl1Player->pos.x, lvl1Player->pos.y},
-                    vec2{lvl1Enms[i]->pos.x, lvl1Enms[i]->pos.y}, collisionThreshX, collisionThreshY))
-            {
-                lvl1Enms[i]->actionTrigger = lvl1Enms[i]->HIT;
-                lvl1Player->actionTrigger = lvl1Player->HIT;
-                if (!lvl1Enms[i]->isDead)
-                {
-                    lvl1Enms[i]->isDead = true;
-                    hitCounter++;
-                }
-                cout << "Hit counter: " << hitCounter << endl;
-            }
-        }
-        if (hitCounter >= MAX_HITS && lvl1Player->actionTrigger != lvl1Player->HIT)
-        {
-            // TO DO: Add constant for start position
-            lvl1Player->pos.x = lvl1Player->START_OF_LEVEL;
-            hitCounter = 0;
-        }
-
+        // Settings specific to level
+        colCheck->xThresh = 0.25f;
+        colCheck->yThresh = 0.25f;
+        // Draw the level
+        loadLevel(level1, lvl1Player, lvl1Enms, _scene::ENMS_COUNT);
+        // Check if player has reached end of level
         if (lvl1Player->pos.x >= lvl1Player->END_OF_LEVEL)
         {
             playLevel1 = false;
             playLevel2 = true;
         }
     }
-
+    // Level 2
     if (playLevel2)
     {
-        // Set collision threshold for level since players and objects vary in size.
-        collisionThreshX = 0.15f;
-        collisionThreshY = 0.5f;
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // Clear buffers
-        glLoadIdentity();
-
-        glPushMatrix();
-        glScalef(13.3f, 13.3f, 1.0f);
+        // Settings specific to level
+        colCheck->xThresh = 0.15f;
+        colCheck->yThresh = 0.5f;
         level2->xMax = 1.0f;
         level2->yMin = 0.1f;
-        level2->drawBckGrnd(dim.x, dim.y);
-        glPopMatrix();
-
-        glPushMatrix();
-        // Draw player
-        lvl2Player->playerActions(deltaTime);
-        lvl2Player->updateQuad();
-        lvl2Player->drawQuad();
-        for (int i = 0; i < sizeof(lvl2Enms) / sizeof(lvl2Enms[0]); i++)
-        {
-            lvl2Enms[i]->enmsActions(deltaTime);
-            lvl2Enms[i]->updateQuad();
-            lvl2Enms[i]->drawQuad();
-        }
-        glPopMatrix();
-
-        // Check for collisions
-        for (int i = 0; i < sizeof(lvl2Enms) / sizeof(lvl2Enms[0]); i++)
-        {
-            if (colCheck->isLinearCol(
-                    vec2{lvl2Player->pos.x, lvl2Player->pos.y},
-                    vec2{lvl2Enms[i]->pos.x, lvl2Enms[i]->pos.y}, collisionThreshX, collisionThreshY))
-            {
-                lvl2Enms[i]->actionTrigger = lvl2Enms[i]->HIT;
-                lvl2Player->actionTrigger = lvl2Player->HIT;
-                if (!lvl2Enms[i]->isDead)
-                {
-                    lvl2Enms[i]->isDead = true;
-                    hitCounter++;
-                }
-                cout << "Hit counter: " << hitCounter << endl;
-            }
-        }
-        if (hitCounter >= MAX_HITS && lvl2Player->actionTrigger != lvl2Player->HIT)
-        {
-            // TO DO: Add constant for start position
-            lvl2Player->pos.x = lvl2Player->START_OF_LEVEL;
-            hitCounter = 0;
-        }
-
+        // Draw the level
+        loadLevel(level2, lvl2Player, lvl2Enms, _scene::ENMS_COUNT);
+        // Check if player has reached end of level
         if (lvl2Player->pos.x >= lvl2Player->END_OF_LEVEL)
         {
             playLevel2 = false;
             playLevel3 = true;
         }
     }
-
+    // Level 3
     if (playLevel3)
     {
-        // Set collision threshold for level since players and objects vary in size.
-        collisionThreshX = 0.25f;
-        collisionThreshY = 0.5f;
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // Clear buffers
-        glLoadIdentity();
-
-        glPushMatrix();
-        glScalef(13.3f, 13.3f, 1.0f);
+        // Settings specific to level
+        colCheck->xThresh = 0.25f;
+        colCheck->yThresh = 0.5f;
         level3->xMax = 0.5f;
         level3->yMin = 0.0f;
-        level3->drawBckGrnd(dim.x, dim.y);
-        glPopMatrix();
-        glPushMatrix();
-        // Draw player
-        lvl3Player->playerActions(deltaTime);
-        lvl3Player->updateQuad();
-        lvl3Player->drawQuad();
-        // Draw enemies
-        for (int i = 0; i < sizeof(lvl3Enms) / sizeof(lvl3Enms[0]); i++)
-        {
-            lvl3Enms[i]->enmsActions(deltaTime);
-            lvl3Enms[i]->updateQuad();
-            lvl3Enms[i]->drawQuad();
-        }
-        glPopMatrix();
-
-        // Check for collisions
-        for (int i = 0; i < sizeof(lvl3Enms) / sizeof(lvl3Enms[0]); i++)
-        {
-            if (colCheck->isLinearCol(
-                    vec2{lvl3Player->pos.x, lvl3Player->pos.y},
-                    vec2{lvl3Enms[i]->pos.x, lvl3Enms[i]->pos.y}, collisionThreshX, collisionThreshY))
-            {
-                lvl3Enms[i]->actionTrigger = lvl3Enms[i]->HIT;
-                lvl3Player->actionTrigger = lvl3Player->HIT;
-                if (!lvl3Enms[i]->isDead)
-                {
-                    lvl3Enms[i]->isDead = true;
-                    hitCounter++;
-                }
-                cout << "Hit counter: " << hitCounter << endl;
-            }
-        }
-        if (hitCounter >= MAX_HITS && lvl3Player->actionTrigger != lvl3Player->HIT)
-        {
-            // TO DO: Add constant for start position
-            lvl3Player->pos.x = lvl3Player->START_OF_LEVEL;
-            hitCounter = 0;
-        }
-
+        // Draw the level
+        loadLevel(level3, lvl3Player, lvl3Enms, _scene::ENMS_COUNT);
+        // Check if player has reached end of level
         if (lvl3Player->pos.x >= lvl3Player->END_OF_LEVEL)
         {
             playLevel3 = false;
             endGame = true;
         }
     }
-
+    // End of game
     if (endGame)
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -293,8 +161,55 @@ void _scene::drawScene()
     }
 }
 
-void _scene::loadLevel(_parallax level, _player player, _enms *enms)
+void _scene::loadLevel(_parallax *level, _player *player, _enms *enms[], int enmsArraySize)
 {
+    // Clear buffers
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+
+    // Draw background parallax
+    glPushMatrix();
+    glScalef(13.3f, 13.3f, 1.0f);
+    level->drawBckGrnd(dim.x, dim.y);
+    glPopMatrix();
+
+    glPushMatrix();
+    // Draw player
+    player->playerActions(deltaTime);
+    player->updateQuad();
+    player->drawQuad();
+    // Draw enemies
+    for (int i = 0; i < enmsArraySize; i++)
+    {
+        enms[i]->enmsActions(deltaTime);
+        enms[i]->updateQuad();
+        enms[i]->drawQuad();
+    }
+    glPopMatrix();
+
+    // Check for collisions
+    for (int i = 0; i < enmsArraySize; i++)
+    {
+        if (colCheck->isLinearCol(
+                vec2{player->pos.x, player->pos.y},
+                vec2{enms[i]->pos.x, enms[i]->pos.y},
+                colCheck->xThresh,
+                colCheck->yThresh))
+        {
+            enms[i]->actionTrigger = enms[i]->HIT;
+            player->actionTrigger = player->HIT;
+            if (!enms[i]->isDead)
+            {
+                enms[i]->isDead = true;
+                hitCounter++;
+            }
+        }
+    }
+    if (hitCounter >= MAX_HITS && player->actionTrigger != player->HIT)
+    {
+        player->pos.x = player->START_OF_LEVEL;
+        hitCounter = 0;
+    }
 }
 
 void _scene::mouseMapping(int x, int y)

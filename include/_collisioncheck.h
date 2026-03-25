@@ -13,6 +13,8 @@ public:
     bool isRadialCol(vec3, vec3, float, float, float);
     // positions, radius, threshold
     bool isPlanoCol(vec3, vec3);
+    float xThresh;
+    float yThresh;
 
 protected:
 private:
