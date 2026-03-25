@@ -21,8 +21,7 @@ public:
     GLint initGL();            // initialize the openGL contents
     void reSize(GLint, GLint); // to handle resize window
     void drawScene();          // render the final scene
-    void drawScene2();
-    void drawScene3();
+    void loadLevel(_parallax, _player, _enms *);
     int winMsg(HWND hWnd,     // Handle For This Window
                UINT uMsg,     // Message For This Window
                WPARAM wParam, // Additional Message Information

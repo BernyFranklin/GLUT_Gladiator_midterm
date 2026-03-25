@@ -86,16 +86,17 @@ float _scene::deltaTime = 0; // initializing static variable
 void _scene::drawScene()
 {
     float collisionThreshX, collisionThreshY;
+    // Initiiate current time for delta use
+    auto currentTime = chrono::steady_clock::now();
+    // Calculate the elapsed time since the last frame
+    chrono::duration<float> elapsed = currentTime - lastTime;
+    _scene::deltaTime = elapsed.count();
+    // Update lastTime
+    lastTime = currentTime;
+
     // Level 1
     if (playLevel1)
     {
-        // Initiiate current time for delta use
-        auto currentTime = chrono::steady_clock::now();
-        // Calculate the elapsed time since the last frame
-        chrono::duration<float> elapsed = currentTime - lastTime;
-        _scene::deltaTime = elapsed.count();
-        // Update lastTime
-        lastTime = currentTime;
         // Set collision threshold for level since players and objects vary in size.
         collisionThreshX = 0.25f;
         collisionThreshY = 0.25f;
@@ -155,13 +156,6 @@ void _scene::drawScene()
 
     if (playLevel2)
     {
-        // Initiiate current time for delta use
-        auto currentTime = chrono::steady_clock::now();
-        // Calculate the elapsed time since the last frame
-        chrono::duration<float> elapsed = currentTime - lastTime;
-        _scene::deltaTime = elapsed.count();
-        // Update lastTime
-        lastTime = currentTime;
         // Set collision threshold for level since players and objects vary in size.
         collisionThreshX = 0.15f;
         collisionThreshY = 0.5f;
@@ -223,13 +217,6 @@ void _scene::drawScene()
 
     if (playLevel3)
     {
-        // Initiiate current time for delta use
-        auto currentTime = chrono::steady_clock::now();
-        // Calculate the elapsed time since the last frame
-        chrono::duration<float> elapsed = currentTime - lastTime;
-        _scene::deltaTime = elapsed.count();
-        // Update lastTime
-        lastTime = currentTime;
         // Set collision threshold for level since players and objects vary in size.
         collisionThreshX = 0.25f;
         collisionThreshY = 0.5f;
@@ -304,6 +291,10 @@ void _scene::drawScene()
         endScreen->drawBckGrnd(dim.x, dim.y);
         glPopMatrix();
     }
+}
+
+void _scene::loadLevel(_parallax level, _player player, _enms *enms)
+{
 }
 
 void _scene::mouseMapping(int x, int y)
