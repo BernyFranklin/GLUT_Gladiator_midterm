@@ -17,7 +17,7 @@ _enms::_enms()
 
     vel = 45;
     t = 0.1;
-    actionTrigger = 2;
+    actionTrigger = FALL;
 }
 
 _enms::~_enms()
@@ -44,7 +44,6 @@ void _enms::enmsInit(int x, int y, float minX, float maxX, float minY, float max
     actionTrigger = FALL;
 }
 
-
 void _enms::enmsActions(float deltaT)
 {
     timer += deltaT;
@@ -65,7 +64,6 @@ void _enms::enmsActions(float deltaT)
         }
         break;
     case HIT:
-
         if (timer > 0.08)
         {
 
@@ -79,33 +77,6 @@ void _enms::enmsActions(float deltaT)
                 actionTrigger = FALL;
                 isDead = false;
             }
-        }
-        break;
-    case LEFTWALK:
-        if (timer > 0.08)
-        {
-        }
-        break;
-    case ROLLEFT:
-
-        break;
-    case ROLRIGHT:
-
-        if (timer > 0.08)
-        {
-            theta = 30 * PI / 180.0;
-
-            rot.z += (float)rand() / (float)(RAND_MAX) * 100;
-
-            // x = vtcos
-            // y = vtsin - (1/2)gravity*t^2
-
-            pos.x += vel * t * cos(theta) / 1200.0;
-            pos.y += (vel * t * sin(theta) - 0.5 * GRAVITY * t * t) / 100.0;
-
-            pos.y > -1.5 ? t += 0.3 : (t = 0.1, pos.y = -1.4);
-            pos.x > 4.5 ? (actionTrigger = LEFTWALK, rot.z = 0) : NULL;
-            timer = 0;
         }
         break;
     default:

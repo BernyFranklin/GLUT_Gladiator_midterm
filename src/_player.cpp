@@ -10,7 +10,13 @@ _player::~_player()
     // dtor
 }
 
-void _player::playerInit(float xFrameStart, float xFrameEnd, float yFrameStart, float yFrameEnd, float yPos, char *fileName)
+void _player::playerInit(
+    float xFrameStart, 
+    float xFrameEnd, 
+    float yFrameStart, 
+    float yFrameEnd, 
+    float yPos, 
+    char *fileName)
 {
     initQuad(fileName);
 

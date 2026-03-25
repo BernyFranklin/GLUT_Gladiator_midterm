@@ -11,8 +11,6 @@ public:
     virtual ~_player();
     const float END_OF_LEVEL = 4.6f;
     const float START_OF_LEVEL = -4.6f;
-    const float yPosLvl1 = -2.56f;
-    const float yPosLvl2 = -2.26f;
     const int xFrames = 10;
     const int yFrames = 2;
     float timer = 0.0f;

@@ -14,21 +14,9 @@ public:
     int actionTrigger;
     float initialFrameMinX, initialFrameMaxX, initialFrameMinY, initialFrameMaxY;
     bool isDead = false;
-    enum
-    {
-        FALL,
-        LEFTWALK,
-        HIT,
-        RUN,
-        JUMP,
-        ATTACK,
-        ROLLEFT,
-        ROLRIGHT
-    };
+    enum { FALL, HIT };
 
     void enmsInit(int, int, float, float, float, float, char *);
-    void skullInit(char *);
-    void gasInit(char *);
     void enmsActions(float);
     void placeEmns(vec3, float);
     void drawEnms();

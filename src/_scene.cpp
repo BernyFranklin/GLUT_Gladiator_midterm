@@ -4,7 +4,6 @@ auto lastTime = chrono::steady_clock::now();
 _scene::_scene()
 {
     // ctor
-
     mouse.x = 0;
     mouse.y = 0;
     mouse.z = -6;
