@@ -10,60 +10,22 @@ _player::~_player()
     // dtor
 }
 
-void _player::lvl1PlayerInit(char *fileName)
+void _player::playerInit(float xFrameStart, float xFrameEnd, float yFrameStart, float yFrameEnd, float yPos, char *fileName)
 {
     initQuad(fileName);
 
-    standLeftMin = 1.0f / (float)xFrames;
-    standLeftMax = 2.0f / (float)xFrames;
-    standRightMin = 2.0f / (float)xFrames;
-    standRightMax = 1.0f / (float)xFrames;
+    standRightMin = xFrameStart / (float)xFrames;
+    standRightMax = xFrameEnd / (float)xFrames;
+    standLeftMin = xFrameEnd / (float)xFrames;
+    standLeftMax = xFrameStart / (float)xFrames;
 
     xMin = standRightMin;
     xMax = standRightMax;
-    yMin = 0.02f / (float)yFrames;
-    yMax = 1.0f / (float)yFrames;
-    facingLeft = false;
+    yMin = yFrameStart / (float)yFrames;
+    yMax = yFrameEnd / (float)yFrames;
     facingRight = true;
-    pos.y = yPosLvl1;
-}
-
-void _player::lvl2PlayerInit(char *fileName)
-{
-    initQuad(fileName);
-
-    standLeftMin = 3.0f / (float)xFrames;
-    standLeftMax = 2.0f / (float)xFrames;
-    standRightMin = 2.0f / (float)xFrames;
-    standRightMax = 3.0f / (float)xFrames;
-
-    xMin = standRightMin;
-    xMax = standRightMax;
-    yMin = 0.0f / (float)yFrames;
-    yMax = 1.0f / (float)yFrames;
     facingLeft = false;
-    facingRight = true;
-    pos.y = yPosLvl2;
-}
-
-void _player::lvl3PlayerInit(char *fileName)
-{
-    initQuad(fileName);
-
-    standLeftMin = 3.0f / (float)xFrames;
-    standLeftMax = 2.0f / (float)xFrames;
-    standRightMin = 2.0f / (float)xFrames;
-    standRightMax = 3.0f / (float)xFrames;
-
-    xMin = standRightMin;
-    xMax = standRightMax;
-    yMin = 0.05f / (float)yFrames;
-    yMax = 1.0f / (float)yFrames;
-    facingLeft = false;
-    facingRight = true;
-    scale.x = 0.75f;
-    scale.y = 0.75f;
-    pos.y = -1.8f;
+    pos.y = yPos;
 }
 
 void _player::playerActions(float deltaT)

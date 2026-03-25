@@ -26,16 +26,18 @@ GLint _scene::initGL()
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
-    // Set background
+    // Set backgrounds
     level1->initPrlx("images/lvl1.png");
     level2->initPrlx("images/lvl2.png");
     level3->initPrlx("images/lvl3.png");
     endScreen->initPrlx("images/endScreen.png");
-
-    lvl1Player->lvl1PlayerInit("images/frog.png");
-    lvl2Player->lvl2PlayerInit("images/mushroom.png");
-    lvl3Player->lvl3PlayerInit("images/spaceman.png");
-
+    // Set players
+    lvl1Player->playerInit(2.0f, 1.0f, 0.02f, 1.0f, -2.56f, "images/frog.png");
+    lvl2Player->playerInit(2.0f, 3.0f, 0.0f, 1.0f, -2.26f, "images/mushroom.png");
+    lvl3Player->playerInit(2.0f, 3.0f, 0.05f, 1.0f, -1.8f, "images/spaceman.png");
+    lvl3Player->scale.x = 0.75f;
+    lvl3Player->scale.y = 0.75f;
+    // Set enemy objects
     for (int i = 0; i < sizeof(lvl1Enms) / sizeof(lvl1Enms[0]); i++)
     {
         lvl1Enms[i]->enmsInit(7, 1, 2.0f, 3.0f, 0.0f, 1.0f, "images/fallingSkull.png");

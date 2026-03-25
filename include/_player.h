@@ -28,7 +28,7 @@ public:
     };
     bool facingLeft;
     bool facingRight;
-
+    void playerInit(float, float, float, float, float, char*);
     void lvl1PlayerInit(char *);
     void lvl2PlayerInit(char *);
     void lvl3PlayerInit(char *);
