@@ -1,23 +1,21 @@
 #ifndef _COLLISIONCHECK_H
 #define _COLLISIONCHECK_H
 
-#include<_common.h>
+#include <_common.h>
 
 class _collisionCheck
 {
-    public:
-        _collisionCheck();
-        virtual ~_collisionCheck();
+public:
+    _collisionCheck();
+    virtual ~_collisionCheck();
 
-        bool isLinearCol(vec2,vec2); // check only xy
-        bool isRadialCol(vec3,vec3,float,float,float);
-         //positions, radius, threshold
-        bool isPlanoCol(vec3,vec3);
-        const float COLLISION_THRESHOLD = 0.3f;
+    bool isLinearCol(vec2, vec2, float, float); // check only xy
+    bool isRadialCol(vec3, vec3, float, float, float);
+    // positions, radius, threshold
+    bool isPlanoCol(vec3, vec3);
 
-    protected:
-
-    private:
+protected:
+private:
 };
 
 #endif // _COLLISIONCHECK_H

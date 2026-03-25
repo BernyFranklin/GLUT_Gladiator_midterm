@@ -10,11 +10,13 @@ _collisionCheck::~_collisionCheck()
     // dtor
 }
 
-bool _collisionCheck::isLinearCol(vec2 player, vec2 enemy)
+bool _collisionCheck::isLinearCol(vec2 player, vec2 enemy, float collisionThreshX, float collisionThreshY)
 {
     bool crossX, crossY;
-    (enemy.y <= player.y + COLLISION_THRESHOLD) ? crossY = true : crossY = false;
-    (enemy.x > (player.x - COLLISION_THRESHOLD) && enemy.x < (player.x + COLLISION_THRESHOLD))
+    (enemy.y < (player.y + collisionThreshY) && enemy.y > (player.y - collisionThreshY))
+        ? crossY = true
+        : crossY = false;
+    (enemy.x > (player.x - collisionThreshX) && enemy.x < (player.x + collisionThreshX))
         ? crossX = true
         : crossX = false;
 

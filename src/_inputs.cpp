@@ -52,11 +52,13 @@ void _inputs::keyPressed(_player *qD)
         cout << qD->pos.y << endl;
         break;
     case VK_LEFT:
-        qD->actionTrigger = qD->LEFTWALK;
+        if (qD->actionTrigger != qD->HIT)
+            qD->actionTrigger = qD->LEFTWALK;
         break;
 
     case VK_RIGHT:
-        qD->actionTrigger = qD->RIGHTWALK;
+        if (qD->actionTrigger != qD->HIT)
+            qD->actionTrigger = qD->RIGHTWALK;
         break;
     default:
         break;

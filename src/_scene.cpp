@@ -83,6 +83,7 @@ float _scene::deltaTime = 0; // initializing static variable
 
 void _scene::drawScene()
 {
+    float collisionThreshX, collisionThreshY;
     // Level 1
     if (playLevel1)
     {
@@ -93,6 +94,9 @@ void _scene::drawScene()
         _scene::deltaTime = elapsed.count();
         // Update lastTime
         lastTime = currentTime;
+        // Set collision threshold for level since players and objects vary in size.
+        collisionThreshX = 0.25f;
+        collisionThreshY = 0.25f;
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // Clear buffers
@@ -102,7 +106,6 @@ void _scene::drawScene()
         glScalef(13.3f, 13.3f, 1.0f);
         level1->drawBckGrnd(dim.x, dim.y);
         glPopMatrix();
-
         glPushMatrix();
         // Draw player
         lvl1Player->playerActions(deltaTime);
@@ -122,7 +125,7 @@ void _scene::drawScene()
         {
             if (colCheck->isLinearCol(
                     vec2{lvl1Player->pos.x, lvl1Player->pos.y},
-                    vec2{lvl1Enms[i]->pos.x, lvl1Enms[i]->pos.y}))
+                    vec2{lvl1Enms[i]->pos.x, lvl1Enms[i]->pos.y}, collisionThreshX, collisionThreshY))
             {
                 lvl1Enms[i]->actionTrigger = lvl1Enms[i]->HIT;
                 lvl1Player->actionTrigger = lvl1Player->HIT;
@@ -134,7 +137,7 @@ void _scene::drawScene()
                 cout << "Hit counter: " << hitCounter << endl;
             }
         }
-        if (hitCounter >= MAX_HITS)
+        if (hitCounter >= MAX_HITS && lvl1Player->actionTrigger != lvl1Player->HIT)
         {
             // TO DO: Add constant for start position
             lvl1Player->pos.x = lvl1Player->START_OF_LEVEL;
@@ -157,6 +160,9 @@ void _scene::drawScene()
         _scene::deltaTime = elapsed.count();
         // Update lastTime
         lastTime = currentTime;
+        // Set collision threshold for level since players and objects vary in size.
+        collisionThreshX = 0.15f;
+        collisionThreshY = 0.5f;
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // Clear buffers
@@ -187,7 +193,7 @@ void _scene::drawScene()
         {
             if (colCheck->isLinearCol(
                     vec2{lvl2Player->pos.x, lvl2Player->pos.y},
-                    vec2{lvl2Enms[i]->pos.x, lvl2Enms[i]->pos.y}))
+                    vec2{lvl2Enms[i]->pos.x, lvl2Enms[i]->pos.y}, collisionThreshX, collisionThreshY))
             {
                 lvl2Enms[i]->actionTrigger = lvl2Enms[i]->HIT;
                 lvl2Player->actionTrigger = lvl2Player->HIT;
@@ -199,7 +205,7 @@ void _scene::drawScene()
                 cout << "Hit counter: " << hitCounter << endl;
             }
         }
-        if (hitCounter >= MAX_HITS)
+        if (hitCounter >= MAX_HITS && lvl2Player->actionTrigger != lvl2Player->HIT)
         {
             // TO DO: Add constant for start position
             lvl2Player->pos.x = lvl2Player->START_OF_LEVEL;
@@ -222,6 +228,9 @@ void _scene::drawScene()
         _scene::deltaTime = elapsed.count();
         // Update lastTime
         lastTime = currentTime;
+        // Set collision threshold for level since players and objects vary in size.
+        collisionThreshX = 0.25f;
+        collisionThreshY = 0.5f;
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // Clear buffers
@@ -252,7 +261,7 @@ void _scene::drawScene()
         {
             if (colCheck->isLinearCol(
                     vec2{lvl3Player->pos.x, lvl3Player->pos.y},
-                    vec2{lvl3Enms[i]->pos.x, lvl3Enms[i]->pos.y}))
+                    vec2{lvl3Enms[i]->pos.x, lvl3Enms[i]->pos.y}, collisionThreshX, collisionThreshY))
             {
                 lvl3Enms[i]->actionTrigger = lvl3Enms[i]->HIT;
                 lvl3Player->actionTrigger = lvl3Player->HIT;
@@ -264,7 +273,7 @@ void _scene::drawScene()
                 cout << "Hit counter: " << hitCounter << endl;
             }
         }
-        if (hitCounter >= MAX_HITS)
+        if (hitCounter >= MAX_HITS && lvl3Player->actionTrigger != lvl3Player->HIT)
         {
             // TO DO: Add constant for start position
             lvl3Player->pos.x = lvl3Player->START_OF_LEVEL;

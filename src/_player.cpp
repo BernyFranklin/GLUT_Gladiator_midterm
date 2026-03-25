@@ -92,7 +92,7 @@ void _player::playerActions(float deltaT)
             facingRight = false;
             facingLeft = true;
         }
-        if (timer > 0.07)
+        if (timer > 0.07f)
         {
             xMin += 1.0f / (float)xFrames;
             xMax += 1.0f / (float)xFrames;
@@ -111,7 +111,7 @@ void _player::playerActions(float deltaT)
             facingLeft = false;
             facingRight = true;
         }
-        if (timer > 0.07)
+        if (timer > 0.07f)
         {
             xMin += 1.0f / (float)xFrames;
             xMax += 1.0f / (float)xFrames;
@@ -120,30 +120,21 @@ void _player::playerActions(float deltaT)
         }
         break;
     case HIT:
-        if (facingRight)
+        yMin = 1.02f / (float)yFrames;
+        yMax = 2.0f / (float)yFrames;
+        if (timer > 0.07f)
         {
-            xMin = 0.0f;
-            xMax = 1.0f / (float)xFrames;
-            yMin = 1.02f / (float)yFrames;
-            yMax = 2.0f / (float)yFrames;
-        }
-        else
-        {
-            xMin = 1.0f / (float)xFrames;
-            xMax = 0.0f / (float)xFrames;
-            yMin = 1.02f / (float)yFrames;
-            yMax = 2.0f / (float)yFrames;
-        }
-        for (int i = 0; i < 4; i++)
-        {
-            if (timer > 0.07f)
+            xMin += 1.0f / (float)xFrames;
+            xMax += 1.0f / (float)xFrames;
+            timer = 0;
+            if (xMax > 0.4f)
             {
-                xMin += 1.0f / (float)xFrames;
-                xMax += 1.0f / (float)xFrames;
-                timer = 0;
+                if (facingLeft)
+                    actionTrigger = STANDLEFT;
+                else if (facingRight)
+                    actionTrigger = STANDRIGHT;
             }
         }
-        (facingLeft) ? actionTrigger = STANDLEFT : actionTrigger = STANDRIGHT;
         break;
     default:
         break;
