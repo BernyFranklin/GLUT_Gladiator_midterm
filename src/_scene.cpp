@@ -4,14 +4,45 @@ auto lastTime = chrono::steady_clock::now();
 _scene::_scene()
 {
     // ctor
-    mouse.x = 0;
-    mouse.y = 0;
-    mouse.z = -6;
 }
 
 _scene::~_scene()
 {
     // dtor
+    delete level1;
+    delete level2;
+    delete level3;
+    delete endScreen;
+
+    delete lvl1Player;
+    delete lvl2Player;
+    delete lvl3Player;
+
+    for (int i = 0; i < _scene::ENMS_COUNT; i++)
+    {
+        delete lvl1Enms[i];
+        delete lvl2Enms[i];
+        delete lvl3Enms[i];
+
+        lvl1Enms[i] = nullptr;
+        lvl2Enms[i] = nullptr;
+        lvl3Enms[i] = nullptr;
+    }
+
+    delete myKeys;
+    delete colCheck;
+
+    level1 = nullptr;
+    level2 = nullptr;
+    level3 = nullptr;
+    endScreen = nullptr;
+
+    lvl1Player = nullptr;
+    lvl2Player = nullptr;
+    lvl3Player = nullptr;
+
+    myKeys = nullptr;
+    colCheck = nullptr;
 }
 
 GLint _scene::initGL()
@@ -160,6 +191,7 @@ void _scene::drawScene()
     }
 }
 
+// Helper function to draw each level
 void _scene::loadLevel(_parallax *level, _player *player, _enms *enms[], int enmsArraySize)
 {
     // Clear buffers
@@ -195,8 +227,10 @@ void _scene::loadLevel(_parallax *level, _player *player, _enms *enms[], int enm
                 colCheck->xThresh,
                 colCheck->yThresh))
         {
+            // If collision, set trigger to HIT animation
             enms[i]->actionTrigger = enms[i]->HIT;
             player->actionTrigger = player->HIT;
+            // Prevents multiple hits from the same enemy in one collision
             if (!enms[i]->isDead)
             {
                 enms[i]->isDead = true;
@@ -204,6 +238,7 @@ void _scene::loadLevel(_parallax *level, _player *player, _enms *enms[], int enm
             }
         }
     }
+    // Check if player has reached max hits and reset player position if so
     if (hitCounter >= MAX_HITS && player->actionTrigger != player->HIT)
     {
         player->pos.x = player->START_OF_LEVEL;
@@ -211,25 +246,7 @@ void _scene::loadLevel(_parallax *level, _player *player, _enms *enms[], int enm
     }
 }
 
-void _scene::mouseMapping(int x, int y)
-{
-    GLint viewPort[4];        // for the window
-    GLdouble modelViewM[16];  // model and camera
-    GLdouble projectionM[16]; // for the projectio
-    GLfloat winX, winY, winZ; // mouse clicks
-
-    glGetDoublev(GL_MODELVIEW_MATRIX, modelViewM);
-    glGetDoublev(GL_PROJECTION_MATRIX, projectionM);
-    glGetIntegerv(GL_VIEWPORT, viewPort);
-
-    winX = (GLfloat)x;
-    winY = (GLfloat)viewPort[3] - y;
-
-    glReadPixels(x, (int)winY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
-
-    gluUnProject(winX, winY, winZ, modelViewM, projectionM, viewPort, &mouse.x, &mouse.y, &mouse.z);
-}
-
+// Key mapping call
 int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
@@ -250,7 +267,6 @@ int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_LBUTTONDOWN:
     case WM_RBUTTONDOWN:
-        mouseMapping(LOWORD(lParam), HIWORD(lParam));
         break;
     case WM_LBUTTONUP:
     case WM_RBUTTONUP:

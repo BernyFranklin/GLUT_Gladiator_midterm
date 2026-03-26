@@ -15,22 +15,33 @@
 class _scene
 {
 public:
+    // Constructor
     _scene();
+    // Destructor
     virtual ~_scene();
 
-    GLint initGL();            // initialize the openGL contents
-    void reSize(GLint, GLint); // to handle resize window
-    void drawScene();          // render the final scene
-    void loadLevel(_parallax*, _player*, _enms*[], int);
-    int winMsg(HWND hWnd,     // Handle For This Window
-               UINT uMsg,     // Message For This Window
-               WPARAM wParam, // Additional Message Information
+    // Functions
+    GLint initGL();                                         // initialize the openGL contents
+    void reSize(GLint, GLint);                              // to handle resize window
+    void drawScene();                                       // render the final scene
+    void loadLevel(_parallax *, _player *, _enms *[], int); // Load the level with the appropriate parallax, player, and enemies
+    int winMsg(HWND hWnd,                                   // Handle For This Window
+               UINT uMsg,                                   // Message For This Window
+               WPARAM wParam,                               // Additional Message Information
                LPARAM lParam);
 
-    void mouseMapping(int, int);
+    // Variables
     static float deltaTime;
     static const int ENMS_COUNT = 10;
+    vec2 dim;   // window size
+    int hitCounter = 0;
+    const int MAX_HITS = 5;
+    bool playLevel1 = true;
+    bool playLevel2 = false;
+    bool playLevel3 = false;
+    bool endGame = false;
 
+    // Instantiations
     _parallax *level1 = new _parallax();
     _parallax *level2 = new _parallax();
     _parallax *level3 = new _parallax();
@@ -76,14 +87,6 @@ public:
             new _enms()};
     _inputs *myKeys = new _inputs();
     _collisionCheck *colCheck = new _collisionCheck();
-    vec3 mouse; // to keep track of the mouse location
-    vec2 dim;   // window size
-    int hitCounter = 0;
-    const int MAX_HITS = 5;
-    bool playLevel1 = true;
-    bool playLevel2 = false;
-    bool playLevel3 = false;
-    bool endGame = false;
 
 protected:
 private:
